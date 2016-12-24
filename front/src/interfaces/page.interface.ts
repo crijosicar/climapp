@@ -1,4 +1,4 @@
-export interface ITodo {
+export interface IPage {
     title: string;
-    descripcion: string;
+    component: any;
 }

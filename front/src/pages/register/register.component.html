@@ -1,14 +1,58 @@
 <ion-content padding>
-    <form [formGroup]="loginForm" (ngSubmit)="logForm()">
+    <form [formGroup]="registerForm" (ngSubmit)="logForm()">
         <ion-item>
-            <ion-label>Todo</ion-label>
-            <ion-input type="text" formControlName="title"></ion-input>
+            <ion-label>Nombre</ion-label>
+            <ion-input  type="text" 
+                        formControlName="name">
+            </ion-input>
         </ion-item>
         <ion-item>
-            <ion-label>Description</ion-label>
-            <ion-textarea formControlName="description"></ion-textarea>
+            <ion-label>Apellidos</ion-label>
+            <ion-input  type="text" 
+                        formControlName="lastname">
+            </ion-input>
         </ion-item>
-        <button ion-button type="submit" [disabled]="!loginForm.valid">Submit</button>
+        <ion-item>
+            <ion-label>E-mail</ion-label>
+            <ion-input  type="text" 
+                        formControlName="email">
+            </ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Teléfono</ion-label>
+            <ion-input  type="text" 
+                        formControlName="phone">
+            </ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Género</ion-label>
+            <ion-input  type="text" 
+                        formControlName="gender">
+            </ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Contraseña</ion-label>
+            <ion-input  type="password" 
+                        formControlName="password">
+            </ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Repetir contraseña</ion-label>
+            <ion-input  type="password" 
+                        formControlName="confirmPassword">
+            </ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label> Sam</ion-label>
+            <ion-toggle [(ngModel)]="termsAgree" 
+                        checked="false" 
+                        formControlName="termsAgree"></ion-toggle>
+        </ion-item>
+        <button ion-button  
+                type="submit" 
+                [disabled]="false">
+            Submit
+        </button>
     </form>
 </ion-content>
 
