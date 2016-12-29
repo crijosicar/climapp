@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
+import { TermsValidator } from '../../common/validators/termsValidator';
+
 @Component({
     selector: 'register',
     templateUrl: 'register.component.html'
@@ -34,7 +36,10 @@ export class RegisterComponent {
 			Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
 		])),
 		confirmPassword: new FormControl('', Validators.required),
-		termsAgree: new FormControl(false, Validators.required)
+		termsAgree: new FormControl(false, Validators.compose([
+                            Validators.required,
+                            TermsValidator.isValid
+                ]))
 	});
     }
     

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 import { RegisterComponent } from '../register/register.component'; 
 
@@ -13,9 +13,12 @@ export class LoginComponent {
     registerComponent = RegisterComponent;
 
     constructor(private formBuilder: FormBuilder) {
-        this.loginForm = this.formBuilder.group({
-            email: ['', [Validators.required, Validators.minLength(5) ]],
-            contrasenia: ['', [Validators.required]],
+        this.loginForm = new FormGroup({
+            email: new FormControl('', [Validators.required, 
+                                        Validators.minLength(5), 
+                                        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+                                        ]),
+            contrasenia: new FormControl('', Validators.required)
         });
     } 
     

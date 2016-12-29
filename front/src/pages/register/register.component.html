@@ -31,6 +31,24 @@
             </ion-input>
         </ion-item>
         <ion-item>
+            <ion-label>Fecha de nacimiento</ion-label>
+            <ion-input  type="text" 
+                        formControlName="birthDate">
+            </ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Ciudad nacimiento</ion-label>
+            <ion-input  type="text" 
+                        formControlName="bornCity">
+            </ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Ciudad actual</ion-label>
+            <ion-input  type="text" 
+                        formControlName="actualCity">
+            </ion-input>
+        </ion-item>
+        <ion-item>
             <ion-label>Contraseña</ion-label>
             <ion-input  type="password" 
                         formControlName="password">
@@ -43,14 +61,15 @@
             </ion-input>
         </ion-item>
         <ion-item>
-            <ion-label> Sam</ion-label>
+            <ion-label> Terminos y condiciones</ion-label>
             <ion-toggle [(ngModel)]="termsAgree" 
                         checked="false" 
                         formControlName="termsAgree"></ion-toggle>
         </ion-item>
+        {{registerForm.valid}}
         <button ion-button  
                 type="submit" 
-                [disabled]="false">
+                [disabled]="!registerForm.valid">
             Submit
         </button>
     </form>
