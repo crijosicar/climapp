@@ -7,6 +7,8 @@ import { RegisterComponent } from '../pages/register/register.component';
 import { HomeComponent } from '../pages/home/home.component';
 import { Page2 } from '../pages/page2/page2';
 
+import { RegisterService } from '../pages/register/register.service';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -24,8 +26,8 @@ import { Page2 } from '../pages/page2/page2';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    Page2
+    Page2,
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [RegisterService,{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
 export class AppModule {}

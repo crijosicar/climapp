@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { TermsValidator } from '../../common/validators/termsValidator';
+import { ICity } from '../../interfaces/city.interface';
+import { RegisterService } from './register.service';
 
 @Component({
     selector: 'register',
@@ -11,36 +13,49 @@ export class RegisterComponent {
 
     registerForm: FormGroup;
     termsAgree: boolean;
+    listGeneros: Array<ICity>;
+    errorMessage: string;
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private registerService: RegisterService) {
+        this.getAllCities();
         this.termsAgree = false;
         this.registerForm = new FormGroup({
-		name: new FormControl('', Validators.required),
-		lastname: new FormControl('', Validators.required),
-		email: new FormControl('', Validators.compose([
+		name: new FormControl(null, Validators.required),
+		lastname: new FormControl(null, Validators.required),
+		email: new FormControl(null, Validators.compose([
 			Validators.required,
 			Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
 		])),
-		phone: new FormControl('', Validators.compose([
+		phone: new FormControl(null, Validators.compose([
 			Validators.pattern('^\\d+$'),
 			Validators.required
 		])),
-                birthDate: new FormControl('', Validators.required),
-                actualCity:  new FormControl('', Validators.required),
-                bornCity:  new FormControl('', Validators.required),
+                birthDate: new FormControl(null, Validators.required),
+                actualCity:  new FormControl(null, Validators.required),
+                bornCity:  new FormControl(null, Validators.required),
                 state: new FormControl('A', Validators.required),
 		gender: new FormControl('M', Validators.required),
-		password: new FormControl('', Validators.compose([
+		password: new FormControl(null, Validators.compose([
 			Validators.minLength(6),
 			Validators.required,
 			Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
 		])),
-		confirmPassword: new FormControl('', Validators.required),
+		confirmPassword: new FormControl(null, Validators.required),
 		termsAgree: new FormControl(false, Validators.compose([
                             Validators.required,
                             TermsValidator.isValid
                 ]))
 	});
+    }
+    
+    getAllCities() {
+        this.registerService.getAllCities()
+            .subscribe(
+            listGeneros => {
+                this.listGeneros = listGeneros;
+            },
+            error => this.errorMessage = <any>error
+            );
     }
     
     logForm() {

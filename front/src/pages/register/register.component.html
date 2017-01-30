@@ -1,76 +1,86 @@
 <ion-content padding>
     <form [formGroup]="registerForm" (ngSubmit)="logForm()">
         <ion-item>
-            <ion-label>Nombre</ion-label>
+            <ion-label color="primary" stacked>Nombre</ion-label>
             <ion-input  type="text" 
-                        formControlName="name">
+                        formControlName="name"
+                        clearInput>
             </ion-input>
         </ion-item>
         <ion-item>
-            <ion-label>Apellidos</ion-label>
+            <ion-label color="primary" stacked>Apellidos</ion-label>
             <ion-input  type="text" 
-                        formControlName="lastname">
+                        formControlName="lastname"
+                        clearInput>
             </ion-input>
         </ion-item>
         <ion-item>
-            <ion-label>E-mail</ion-label>
+            <ion-label color="primary" stacked>Teléfono</ion-label>
             <ion-input  type="text" 
-                        formControlName="email">
+                        formControlName="phone"
+                        clearInput>
             </ion-input>
         </ion-item>
         <ion-item>
-            <ion-label>Teléfono</ion-label>
-            <ion-input  type="text" 
-                        formControlName="phone">
-            </ion-input>
+            <ion-label color="primary" stacked>Género</ion-label>
+            <ion-select [(ngModel)]="gender"
+                formControlName="gender"
+                [interface]="action-sheet"
+                okText="Aceptar" 
+                cancelText="Cancelar">
+                <ion-option value="0" [attr.selected]="true">--seleccione--</ion-option>
+                <ion-option *ngFor="let genero of listGeneros" value="{{genero.name}}" >{{genero.name}}</ion-option>
+            </ion-select>
         </ion-item>
         <ion-item>
-            <ion-label>Género</ion-label>
-            <ion-input  type="text" 
-                        formControlName="gender">
-            </ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label>Fecha de nacimiento</ion-label>
+            <ion-label color="primary" stacked>Fecha de nacimiento</ion-label>
             <ion-input  type="text" 
                         formControlName="birthDate">
             </ion-input>
         </ion-item>
         <ion-item>
-            <ion-label>Ciudad nacimiento</ion-label>
+            <ion-label color="primary" stacked>Ciudad nacimiento</ion-label>
             <ion-input  type="text" 
                         formControlName="bornCity">
             </ion-input>
         </ion-item>
         <ion-item>
-            <ion-label>Ciudad actual</ion-label>
+            <ion-label color="primary" stacked>Ciudad actual</ion-label>
             <ion-input  type="text" 
                         formControlName="actualCity">
             </ion-input>
         </ion-item>
         <ion-item>
-            <ion-label>Contraseña</ion-label>
-            <ion-input  type="password" 
-                        formControlName="password">
+            <ion-label color="primary" stacked>E-mail</ion-label>
+            <ion-input  type="email" 
+                        formControlName="email"
+                        clearInput>
             </ion-input>
         </ion-item>
         <ion-item>
-            <ion-label>Repetir contraseña</ion-label>
+            <ion-label color="primary" stacked>Contraseña</ion-label>
             <ion-input  type="password" 
-                        formControlName="confirmPassword">
+                        formControlName="password"
+                        clearInput>
             </ion-input>
         </ion-item>
         <ion-item>
-            <ion-label> Terminos y condiciones</ion-label>
+            <ion-label color="primary" stacked>Repetir contraseña</ion-label>
+            <ion-input  type="password" 
+                        formControlName="confirmPassword"
+                        clearInput>
+            </ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary" stacked>Acepta los <a href="#">terminos y condiciones</a></ion-label>
             <ion-toggle [(ngModel)]="termsAgree" 
-                        checked="false" 
-                        formControlName="termsAgree"></ion-toggle>
+                checked="false" 
+                formControlName="termsAgree"></ion-toggle>
         </ion-item>
-        {{registerForm.valid}}
         <button ion-button  
                 type="submit" 
                 [disabled]="!registerForm.valid">
-            Submit
+            Registrar
         </button>
     </form>
 </ion-content>
