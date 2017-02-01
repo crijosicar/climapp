@@ -4,7 +4,8 @@ import { Observable } from 'rxjs/Observable';
 
 import '../../common/rxjs-operators';
 import { URL_API } from '../../common/const-util';
-import { ICity } from '../../interfaces/city.interface'
+import { ICity } from '../../interfaces/city.interface';
+import { IGender } from '../../interfaces/gender.interface';
 
 
 @Injectable()
@@ -12,10 +13,17 @@ export class RegisterService {
 
     constructor(private http: Http) { }
 
-    private apiUrl = 'city/City';
+    private cityUrl = 'city/City';
+    private genderUrl = 'vlist/ValueList';
 
     getAllCities(): Observable<ICity[]> {
-        return this.http.get(`${URL_API}/${this.apiUrl}`)
+        return this.http.get(`${URL_API}/${this.cityUrl}`)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    
+    getAllGenders(): Observable<IGender[]> {
+        return this.http.get(`${URL_API}/${this.genderUrl}/findByCategory/GENDER`)
             .map(this.extractData)
             .catch(this.handleError);
     }

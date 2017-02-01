@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { TermsValidator } from '../../common/validators/termsValidator';
 import { ICity } from '../../interfaces/city.interface';
+import { IGender } from '../../interfaces/gender.interface';
 import { RegisterService } from './register.service';
 
 @Component({
@@ -11,10 +12,12 @@ import { RegisterService } from './register.service';
 })
 export class RegisterComponent {
 
-    registerForm: FormGroup;
     termsAgree: boolean;
-    listGeneros: Array<ICity>;
     errorMessage: string;
+    
+    listCities: Array<ICity>;
+    listGeneros: Array<IGender>;
+    registerForm: FormGroup;
 
     constructor(private registerService: RegisterService) {
         this.getAllCities();
@@ -51,8 +54,20 @@ export class RegisterComponent {
     getAllCities() {
         this.registerService.getAllCities()
             .subscribe(
+            listCities => {
+                this.listCities = listCities;
+                console.log(listCities);
+            },
+            error => this.errorMessage = <any>error
+            );
+    }
+    
+    getAllGenders() {
+        this.registerService.getAllGenders()
+            .subscribe(
             listGeneros => {
                 this.listGeneros = listGeneros;
+                console.log(listGeneros);
             },
             error => this.errorMessage = <any>error
             );
