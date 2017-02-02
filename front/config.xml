@@ -4,7 +4,7 @@
     <description>Conoce el clima de tu ciudad.</description>
     <author email="crijosicar@hotmail.com" href="http://www.google.com/">Seven7eam</author>
     <content src="index.html" />
-    <access origin="*" />
+    <access origin="*://*/*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
@@ -30,4 +30,11 @@
     </feature>
     <engine name="ios" spec="~4.3.1" />
     <engine name="android" spec="~6.0.0" />
+    <plugin name="cordova-plugin-whitelist" spec="~1.3.1" />
+    <plugin name="cordova-plugin-globalization" spec="~1.0.5" />
+    <plugin name="cordova-plugin-google-analytics" spec="~1.7.4" />
+    <plugin name="cordova-plugin-camera" spec="~2.3.1">
+        <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
+        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value=" " />
+    </plugin>
 </widget>

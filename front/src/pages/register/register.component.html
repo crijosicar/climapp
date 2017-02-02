@@ -25,24 +25,29 @@
             <ion-label color="primary" stacked>Género</ion-label>
             <ion-select [(ngModel)]="gender"
                 formControlName="gender"
-                [interface]="action-sheet"
+                interface="action-sheet"
                 okText="Aceptar" 
                 cancelText="Cancelar">
-                <ion-option value="0" [attr.selected]="true">--seleccione--</ion-option>
-                <ion-option *ngFor="let genero of listGeneros" value="{{genero.name}}" >{{genero.name}}</ion-option>
+                <ion-option *ngFor="let genero of listGeneros let i = index" value="{{genero.id}}" selected="i == 0">{{genero.description}}</ion-option>
             </ion-select>
         </ion-item>
         <ion-item>
             <ion-label color="primary" stacked>Fecha de nacimiento</ion-label>
-            <ion-input  type="text" 
-                        formControlName="birthDate">
-            </ion-input>
+                <ion-datetime displayFormat="MM/DD/YYYY" 
+                              [(ngModel)]="birthDate"  
+                              formControlName="birthDate"
+                              min="1800-01-01">
+                </ion-datetime>
         </ion-item>
         <ion-item>
             <ion-label color="primary" stacked>Ciudad nacimiento</ion-label>
-            <ion-input  type="text" 
-                        formControlName="bornCity">
-            </ion-input>
+            <ion-select [(ngModel)]="bornCity"
+                formControlName="bornCity"
+                interface="Alert"
+                okText="Aceptar" 
+                cancelText="Cancelar">
+                <ion-option *ngFor="let city of listCities let i = index" value="{{city.id}}">{{city.name}}</ion-option>
+            </ion-select>
         </ion-item>
         <ion-item>
             <ion-label color="primary" stacked>Ciudad actual</ion-label>
@@ -81,6 +86,11 @@
                 type="submit" 
                 [disabled]="!registerForm.valid">
             Registrar
+        </button>
+        <button ion-button  
+                type="button" 
+                (click)="getGeolocalization()">
+            Localización
         </button>
     </form>
 </ion-content>
