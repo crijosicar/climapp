@@ -37,4 +37,6 @@
         <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
         <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value=" " />
     </plugin>
+    <preference name="HeaderColor" value="#becb29" />
+    <plugin name="cordova-plugin-headercolor" spec="~1.0" />
 </widget>

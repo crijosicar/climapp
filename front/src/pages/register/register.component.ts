@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-import {Geolocation} from 'ionic-native';
+import { Geolocation } from 'ionic-native';
 import { AlertController } from 'ionic-angular';
 
 
@@ -84,7 +84,7 @@ export class RegisterComponent {
             // resp.coords.latitude
             // resp.coords.longitude
             console.log(resp);
-            this.showAlert(resp);
+            this.showAlert(`Lat: ${resp.coords.latitude} - Lng: ${resp.coords.longitude}`);
         }).catch((error) => {
             console.log('Error getting location', error);
         });
@@ -94,7 +94,7 @@ export class RegisterComponent {
             // data can be a set of coordinates, or an error (if an error occurred).
             // data.coords.latitude
             // data.coords.longitude
-            this.showAlert(data);
+            //this.showAlert(`Lat: ${data.coords.latitude} - Lng: ${data.coords.longitude}`);
             console.log(data);
         });
     }
