@@ -25,18 +25,24 @@
             <ion-label color="primary" stacked>Género</ion-label>
             <ion-select [(ngModel)]="gender"
                 formControlName="gender"
-                interface="action-sheet"
+                interface="Alert"
                 okText="Aceptar" 
                 cancelText="Cancelar">
-                <ion-option *ngFor="let genero of listGeneros let i = index" value="{{genero.id}}" selected="i == 0">{{genero.description}}</ion-option>
+                <ion-option *ngFor="let genero of listGeneros let i = index" value="{{genero.id}}" selected="i == 0">{{genero.description | capitalize}}</ion-option>
             </ion-select>
         </ion-item>
         <ion-item>
             <ion-label color="primary" stacked>Fecha de nacimiento</ion-label>
-                <ion-datetime displayFormat="MM/DD/YYYY" 
+            
+                <ion-datetime displayFormat="DD MMM, YYYY" 
                               [(ngModel)]="birthDate"  
                               formControlName="birthDate"
-                              min="1800-01-01">
+                              min="1800-01-01"
+                              pickerFormat="DD MMM, YYYY"
+                              monthShortNames="{{ monthNames }}"
+                              cancelText="Cancelar"
+                              doneText="Aceptar"
+                              (ionChange)="onDateChange(birthDate)">
                 </ion-datetime>
         </ion-item>
         <ion-item>
@@ -46,7 +52,7 @@
                 interface="Alert"
                 okText="Aceptar" 
                 cancelText="Cancelar">
-                <ion-option *ngFor="let city of listCities let i = index" value="{{city.id}}">{{city.name}}</ion-option>
+                <ion-option *ngFor="let city of listCities let i = index" value="{{city.id}}">{{city.name  | capitalize}}</ion-option>
             </ion-select>
         </ion-item>
         <ion-item>

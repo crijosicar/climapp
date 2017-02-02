@@ -9,13 +9,16 @@ import { Page2 } from '../pages/page2/page2';
 
 import { RegisterService } from '../pages/register/register.service';
 
+import { CapitalizePipe } from '../pipes/capitalize.pipe';
+
 @NgModule({
   declarations: [
     MyApp,
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    Page2
+    Page2,
+    CapitalizePipe
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -26,7 +29,7 @@ import { RegisterService } from '../pages/register/register.service';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    Page2,
+    Page2
   ],
   providers: [RegisterService,{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

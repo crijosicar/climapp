@@ -17,13 +17,13 @@ export class RegisterService {
     private genderUrl = 'vlist/ValueList';
 
     getAllCities(): Observable<ICity[]> {
-        return this.http.get(`${URL_API}/${this.cityUrl}`)
+        return this.http.get(`${URL_API}${this.cityUrl}`)
             .map(this.extractData)
             .catch(this.handleError);
     }
     
     getAllGenders(): Observable<IGender[]> {
-        return this.http.get(`${URL_API}/${this.genderUrl}/findByCategory/GENDER`)
+        return this.http.get(`${URL_API}${this.genderUrl}/findByCategory/GENDER`)
             .map(this.extractData)
             .catch(this.handleError);
     }
