@@ -7,7 +7,6 @@ import { IPage } from '../interfaces/page.interface';
 import { HomeComponent } from '../pages/home/home.component';
 import { LoginComponent } from '../pages/login/login.component';
 import { RegisterComponent } from '../pages/register/register.component';
-import { Page2 } from '../pages/page2/page2';
 
 
 @Component({
@@ -26,8 +25,7 @@ export class MyApp {
         this.pages = [
             { title: 'Login', component: LoginComponent },
             { title: 'Register', component: RegisterComponent },
-            { title: 'Home', component: HomeComponent },
-            { title: 'Page Two', component: Page2 }
+            { title: 'Inicio', component: HomeComponent }
         ];
 
     }

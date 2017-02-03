@@ -82,27 +82,16 @@ export class RegisterComponent {
 
     getGeolocalization() {
         Geolocation.getCurrentPosition().then((resp) => {
-            // resp.coords.latitude
-            // resp.coords.longitude
-            console.log(resp);
             this.showAlert(`Lat: ${resp.coords.latitude} - Lng: ${resp.coords.longitude}`);
         }).catch((error) => {
-            console.log('Error getting location', error);
-        });
-
-        let watch = Geolocation.watchPosition();
-        watch.subscribe((data) => {
-            // data can be a set of coordinates, or an error (if an error occurred).
-            // data.coords.latitude
-            // data.coords.longitude
-            //this.showAlert(`Lat: ${data.coords.latitude} - Lng: ${data.coords.longitude}`);
-            console.log(data);
+            console.log(error);
         });
     }
     
     onDateChange(date: any) {
+        console.log(date.substring(0, 4));
         date = new Date(date.substring(0, 4), date.substring(5, 6), date.substring(8, 9));
-        console.log(date);
+        //console.log(date);
     }
 
     showAlert(message: any) {

@@ -5,7 +5,6 @@ import { MyApp } from './app.component';
 import { LoginComponent } from '../pages/login/login.component';
 import { RegisterComponent } from '../pages/register/register.component';
 import { HomeComponent } from '../pages/home/home.component';
-import { Page2 } from '../pages/page2/page2';
 
 import { RegisterService } from '../pages/register/register.service';
 
@@ -17,7 +16,6 @@ import { CapitalizePipe } from '../pipes/capitalize.pipe';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    Page2,
     CapitalizePipe
   ],
   imports: [
@@ -28,8 +26,7 @@ import { CapitalizePipe } from '../pipes/capitalize.pipe';
     MyApp,
     LoginComponent,
     RegisterComponent,
-    HomeComponent,
-    Page2
+    HomeComponent
   ],
   providers: [RegisterService,{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
