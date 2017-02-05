@@ -1,102 +1,108 @@
 <ion-content padding>
+    <ion-card>
+        <ion-card-header>
+            Formulario de registro
+        </ion-card-header>
+        <ion-card-content>
+            Este es el formulario de registro
+        </ion-card-content>
+    </ion-card>
     <form [formGroup]="registerForm" (ngSubmit)="logForm()">
-        <ion-item>
-            <ion-label color="primary" stacked>Nombre</ion-label>
-            <ion-input  type="text" 
-                        formControlName="name"
-                        clearInput>
-            </ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label color="primary" stacked>Apellidos</ion-label>
-            <ion-input  type="text" 
-                        formControlName="lastname"
-                        clearInput>
-            </ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label color="primary" stacked>Teléfono</ion-label>
-            <ion-input  type="text" 
-                        formControlName="phone"
-                        clearInput>
-            </ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label color="primary" stacked>Género</ion-label>
-            <ion-select [(ngModel)]="gender"
-                formControlName="gender"
-                interface="Alert"
-                okText="Aceptar" 
-                cancelText="Cancelar">
-                <ion-option *ngFor="let genero of listGeneros let i = index" value="{{genero.id}}" selected="i == 0">{{genero.description | capitalize}}</ion-option>
-            </ion-select>
-        </ion-item>
-        <ion-item>
-            <ion-label color="primary" stacked>Fecha de nacimiento</ion-label>
-                <ion-datetime displayFormat="DD MMM, YYYY" 
-                              [(ngModel)]="birthDate"  
-                              formControlName="birthDate"
-                              min="1800-01-01"
-                              pickerFormat="DD MMM, YYYY"
-                              monthShortNames="{{ monthNames }}"
-                              cancelText="Cancelar"
-                              doneText="Aceptar"
-                              (ionChange)="onDateChange(birthDate)">
-                </ion-datetime>
-        </ion-item>
-        <ion-item>
-            <ion-label color="primary" stacked>Ciudad nacimiento</ion-label>
-            <ion-select [(ngModel)]="bornCity"
-                formControlName="bornCity"
-                interface="Alert"
-                okText="Aceptar" 
-                cancelText="Cancelar">
-                <ion-option *ngFor="let city of listCities let i = index" value="{{city.id}}">{{city.name  | capitalize}}</ion-option>
-            </ion-select>
-        </ion-item>
-        <ion-item>
-            <ion-label color="primary" stacked>Ciudad actual</ion-label>
-            <ion-input  type="text" 
-                        formControlName="actualCity">
-            </ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label color="primary" stacked>E-mail</ion-label>
-            <ion-input  type="email" 
-                        formControlName="email"
-                        clearInput>
-            </ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label color="primary" stacked>Contraseña</ion-label>
-            <ion-input  type="password" 
-                        formControlName="password"
-                        clearInput>
-            </ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label color="primary" stacked>Repetir contraseña</ion-label>
-            <ion-input  type="password" 
-                        formControlName="confirmPassword"
-                        clearInput>
-            </ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label color="primary" stacked>Acepta los <a href="#">terminos y condiciones</a></ion-label>
-            <ion-toggle [(ngModel)]="termsAgree" 
-                checked="false" 
-                formControlName="termsAgree"></ion-toggle>
-        </ion-item>
-        <button ion-button  
-                type="submit" 
-                [disabled]="!registerForm.valid">
-            Registrar
-        </button>
-        <button ion-button  
-                type="button" 
-                (click)="getGeolocalization()">
-            Localización
-        </button>
-    </form>
+                <ion-item>
+                    <ion-label color="primary" stacked>Nombre</ion-label>
+                    <ion-input  type="text" 
+                                formControlName="name"
+                                clearInput>
+                    </ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="primary" stacked>Apellidos</ion-label>
+                    <ion-input  type="text" 
+                                formControlName="lastname"
+                                clearInput>
+                    </ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="primary" stacked>Teléfono</ion-label>
+                    <ion-input  type="text" 
+                                formControlName="phone"
+                                clearInput>
+                    </ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="primary" stacked>Género</ion-label>
+                    <ion-select [(ngModel)]="gender"
+                        formControlName="gender"
+                        interface="Alert"
+                        okText="Aceptar" 
+                        cancelText="Cancelar">
+                        <ion-option *ngFor="let genero of listGeneros let i = index" value="{{genero.id}}" selected="i == 0">{{genero.description | capitalize}}</ion-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="primary" stacked>Fecha de nacimiento</ion-label>
+                    <ion-datetime displayFormat="DD MMM, YYYY" 
+                                  [(ngModel)]="birthDate"  
+                                  formControlName="birthDate"
+                                  min="1800-01-01"
+                                  pickerFormat="DD MMM, YYYY"
+                                  monthShortNames="{{ monthNames }}"
+                                  cancelText="Cancelar"
+                                  doneText="Aceptar"
+                                  (ionChange)="onDateChange(birthDate)">
+                    </ion-datetime>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="primary" stacked>Ciudad nacimiento</ion-label>
+                    <ion-select [(ngModel)]="bornCity"
+                        formControlName="bornCity"
+                        interface="Alert"
+                        okText="Aceptar" 
+                        cancelText="Cancelar">
+                        <ion-option *ngFor="let city of listCities let i = index" value="{{city.id}}">{{city.name  | capitalize}}</ion-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="primary" stacked>Ciudad actual</ion-label>
+                    <ion-input  type="text" 
+                                formControlName="actualCity">
+                    </ion-input>
+                </ion-item>
+                <button ion-button icon-only (click)="getGeolocalization()">
+                        <ion-icon name="contact"></ion-icon>
+                </button>
+                <ion-item>
+                    <ion-label color="primary" stacked>E-mail</ion-label>
+                    <ion-input  type="email" 
+                                formControlName="email"
+                                clearInput>
+                    </ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="primary" stacked>Contraseña</ion-label>
+                    <ion-input  type="password" 
+                                formControlName="password"
+                                clearInput>
+                    </ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="primary" stacked>Repetir contraseña</ion-label>
+                    <ion-input  type="password" 
+                                formControlName="confirmPassword"
+                                clearInput>
+                    </ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="primary" stacked>Acepta los <a href="#">terminos y condiciones</a></ion-label>
+                    <ion-toggle [(ngModel)]="termsAgree" 
+                        checked="false" 
+                        formControlName="termsAgree"></ion-toggle>
+                </ion-item>
+                <button ion-button  
+                        type="submit" 
+                        [disabled]="!registerForm.valid">
+                    Registrar
+                </button>
+            </form>
 </ion-content>
 
