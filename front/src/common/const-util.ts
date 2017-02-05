@@ -1,5 +1,5 @@
 
-export const URL_API = "http://10.0.1.32:8086/admin/";
+export const URL_API = "http://192.168.0.12:8086/admin/";
 
 export const MONTHS_LARGE_NAMES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 
