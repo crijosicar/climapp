@@ -4,38 +4,20 @@ import { Observable } from 'rxjs/Observable';
 
 import '../../common/rxjs-operators';
 import { URL_API } from '../../common/const-util';
-import { Categories } from '../../common/const-categories'; 
-import { ICity } from '../../interfaces/city.interface';
-import { IGender } from '../../interfaces/gender.interface';
 import { IResponseUtil } from '../../interfaces/responseUtil.interface';
 
 
 @Injectable()
-export class RegisterService {
+export class LoginService {
 
-    private cityUrl = 'city/City';
-    private genderUrl = 'vlist/ValueList';
-    private personUrl = 'user/Person';
-    private gender = Categories.GENDER;
+    private authUrl = 'user/Auth';
     private headers = new Headers({ 'Content-Type': 'application/json' });
 
     constructor(private http: Http) { }
-
-    getAllCities(): Observable<ICity[]> {
-        return this.http.get(`${URL_API}${this.cityUrl}`)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
     
-    getAllGenders(): Observable<IGender[]> {
-        return this.http.get(`${URL_API}${this.genderUrl}/findByCategory/${this.gender}`)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-    
-    registerNewUser(body: Object): Observable<IResponseUtil[]> {
+    loginUser(body: Object): Observable<IResponseUtil[]> {
         let options = new RequestOptions({ headers: this.headers });
-        return this.http.post(`${URL_API}${this.personUrl}`, body, options)
+        return this.http.post(`${URL_API}${this.authUrl}`, body, options)
             .map(this.extractData)
             .catch(this.handleError);
     }

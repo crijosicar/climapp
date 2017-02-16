@@ -1,25 +1,52 @@
 <ion-content padding>
-    <form [formGroup]="loginForm" (ngSubmit)="logForm()">
-        <ion-item>
-            <ion-label>Email</ion-label>
-            <ion-input  type="text" 
-                        formControlName="email">
-            </ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label>Contraseña</ion-label>
-            <ion-input  type="password" 
-                        formControlName="contrasenia"></ion-input>
-        </ion-item>
-        <button ion-button  
-                type="submit" 
-                [disabled]="!loginForm.valid">
-            Submit
-        </button>
+    <form [formGroup]="loginForm" (ngSubmit)="sendForm()">
+        <ion-grid>
+            <ion-row>
+                <ion-col width-100>
+                    <ion-item>
+                        <ion-label color="primary" stacked>Usuario</ion-label>
+                        <ion-input  type="text" 
+                                    formControlName="usuario"
+                                    clearInput>
+                        </ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col width-100>
+                    <ion-item>
+                        <ion-label color="primary" stacked>Contraseña</ion-label>
+                        <ion-input  type="password" 
+                                    formControlName="contrasenia"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col width-100>
+                    <button ion-button  
+                            type="submit" 
+                            outline
+                            round
+                            icon-left
+                            [disabled]="!loginForm.valid">
+                        Ingresar
+                        <ion-icon name="arrow-forward"></ion-icon>
+                    </button>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col width-50>
+                    <a [navPush]="registerComponent">
+                        Registrarse
+                    </a>
+                </ion-col>
+                <ion-col width-50>
+                    <a [navPush]="registerComponent">
+                        Recuperar contrase�a
+                    </a>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
     </form>
-    <button ion-button 
-            [navPush]="registerComponent">
-        Registrarse
-    </button>
 </ion-content>
 
