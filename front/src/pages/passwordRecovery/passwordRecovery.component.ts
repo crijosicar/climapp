@@ -2,48 +2,36 @@ import { Component, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Nav, LoadingController, ToastController, NavController  } from 'ionic-angular';
 import { Network } from 'ionic-native';
-import { RegisterComponent } from '../register/register.component'; 
-import { PasswordRecoveryComponent } from '../passwordRecovery/passwordRecovery.component'; 
-import { HomeComponent } from '../home/home.component'; 
+import { LoginComponent } from '../login/login.component'; 
 import { IResponseUtil } from '../../interfaces/responseUtil.interface';
-import { ILogin } from '../../interfaces/login.interface';
-import { LoginService } from './login.service';
+import { IPasswordRecovery } from '../../interfaces/passwordRecovery.interface';
+import { PasswordRecoveryService } from './passwordRecovery.service';
 import { PATTERN_EMAIL } from '../../common/const-util';
 
 @Component({
-    selector: 'login',
-    templateUrl: 'login.component.html'
+    selector: 'passwordRecovery',
+    templateUrl: 'passwordRecovery.component.html'
 })
-export class LoginComponent {
+export class PasswordRecoveryComponent {
     @ViewChild(Nav) nav: Nav;
-    loginForm: FormGroup;
-    registerComponent: any = RegisterComponent;
-    passwordRecoveryComponent: any = PasswordRecoveryComponent;
-    loginUserResponse: IResponseUtil;
+    passwordRecoveryForm: FormGroup;
+    loginComponent: any = LoginComponent;
     loader: any;
     errorMessage: string;
-    homeComponent: any = HomeComponent;
-    dataForm: ILogin = {
-        id: null,
-        idPerson: null,
-        idUserAccess: null,
-        password: null,
-        userName: null
+    dataForm: IPasswordRecovery = {
+        email: null
     };
+    updatePasswordResponse: IResponseUtil;
     
     constructor(private toastCtrl: ToastController,
-        private loginService: LoginService,
+        private passwordRecoveryService: PasswordRecoveryService,
         private loadingCtrl: LoadingController,
         private navCtrl: NavController) {
-        if (Network.type === 'none') {
-            this.makeToast("No tienes conexión a internet","top");
-        }
-        this.loginForm = new FormGroup({
-            usuario: new FormControl(null, Validators.compose([
+        this.passwordRecoveryForm = new FormGroup({
+            email: new FormControl(null, Validators.compose([
                 Validators.pattern(PATTERN_EMAIL),
                 Validators.required
-            ])),
-            contrasenia: new FormControl(null, Validators.required)
+            ]))
         });
     } 
 
@@ -72,16 +60,15 @@ export class LoginComponent {
             this.loader.dismiss();
             this.makeToast("No tienes conexión a internet","top");
         } else {
-            this.dataForm.password = this.loginForm.value.contrasenia;
-            this.dataForm.userName = this.loginForm.value.usuario;
-            this.loginService.loginUser(this.dataForm).subscribe(
-                loginUserResponse => {
+            this.dataForm.email = this.passwordRecoveryForm.value.email;
+            this.passwordRecoveryService.updatePasswordByMail(this.dataForm).subscribe(
+                updatePasswordResponse => {
                     this.loader.dismiss();
-                    this.loginUserResponse = loginUserResponse;
-                    if(this.loginUserResponse.tipo !== 200){
-                        this.makeToast(this.loginUserResponse.message,"top");
+                    this.updatePasswordResponse = updatePasswordResponse;
+                    if(this.updatePasswordResponse.tipo !== 200){
+                        this.makeToast(this.updatePasswordResponse.message,"top");
                     }else{
-                        this.navCtrl.setRoot(this.homeComponent);
+                        this.makeToast(this.updatePasswordResponse.message,"top");
                     }
                 },
                 error => {

@@ -15,22 +15,15 @@ export class LoginService {
 
     constructor(private http: Http) { }
     
-    loginUser(body: Object): Observable<IResponseUtil[]> {
+    loginUser(body: Object): Observable<IResponseUtil> {
         let options = new RequestOptions({ headers: this.headers });
         return this.http.post(`${URL_API}${this.authUrl}`, body, options)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-    private extractData(res: Response) {
-        let body = res.json();
-        if (Array.isArray(body)) {
-            return body || {};
-        } else if (typeof body == "object") {
-            return Array.of(body) || {};
-        }else{
-            return body;
-        }
+    private extractData(res: Response | any) {
+        return res.json();
     }
 
     private handleError(error: Response | any) {

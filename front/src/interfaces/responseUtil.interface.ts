@@ -1,6 +1,6 @@
 export interface IResponseUtil {
     message?: string;
-    object?: {};
+    object?: Object;
     objectResponse?: Object;
     responseList?: Array<Object>;
     tipo?: number;

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ionicframework.front920107" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.crijosicar.climapp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Clima</name>
     <description>Conoce el clima de tu ciudad.</description>
     <author email="crijosicar@hotmail.com" href="http://www.google.com/">Seven7eam</author>

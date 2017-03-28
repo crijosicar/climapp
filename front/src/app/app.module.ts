@@ -4,8 +4,10 @@ import { MyApp } from './app.component';
 import { LoginComponent } from '../pages/login/login.component';
 import { RegisterComponent } from '../pages/register/register.component';
 import { HomeComponent } from '../pages/home/home.component';
+import { PasswordRecoveryComponent } from '../pages/passwordRecovery/passwordRecovery.component';
 import { RegisterService } from '../pages/register/register.service';
 import { LoginService } from '../pages/login/login.service';
+import { PasswordRecoveryService } from '../pages/passwordRecovery/passwordRecovery.service';
 import { CapitalizePipe } from '../pipes/capitalize.pipe';
 
 @NgModule({
@@ -14,6 +16,7 @@ import { CapitalizePipe } from '../pipes/capitalize.pipe';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
+    PasswordRecoveryComponent,
     CapitalizePipe
   ],
   imports: [
@@ -24,8 +27,12 @@ import { CapitalizePipe } from '../pipes/capitalize.pipe';
     MyApp,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    PasswordRecoveryComponent
   ],
-  providers: [RegisterService, LoginService,{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [RegisterService, 
+                LoginService,
+                PasswordRecoveryService,
+                {provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
 export class AppModule {}
