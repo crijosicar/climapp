@@ -2,7 +2,7 @@ export const ERROR = 'Error!';
 
 export const SUCCESS = 'Operación exitosa.';
 
-export const NO_NETWORK_CONNECTION 'No tienes conexión a internet.';
+export const NO_NETWORK_CONNECTION = 'No tienes conexión a internet.';
 
 export const OPS = 'Ops! algo salió mal.';
 
