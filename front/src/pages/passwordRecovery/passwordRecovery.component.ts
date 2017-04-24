@@ -7,6 +7,7 @@ import { IResponseUtil } from '../../interfaces/responseUtil.interface';
 import { IPasswordRecovery } from '../../interfaces/passwordRecovery.interface';
 import { PasswordRecoveryService } from './passwordRecovery.service';
 import { PATTERN_EMAIL } from '../../common/const-util';
+import { NONE, NO_NETWORK_CONNECTION, TOP, CLOSE, OPS, WAIT } from '../../common/const-messages';
 
 @Component({
     selector: 'passwordRecovery',
@@ -37,7 +38,7 @@ export class PasswordRecoveryComponent {
 
     presentLoading() {
         this.loader = this.loadingCtrl.create({
-          content: "Espere..."
+          content: WAIT
         });
         this.loader.present();
     }
@@ -48,7 +49,7 @@ export class PasswordRecoveryComponent {
             duration: 6000,
             position: position,
             showCloseButton: true,
-            closeButtonText: "Cerrar",
+            closeButtonText: CLOSE,
             dismissOnPageChange: false
         });
         toast.present();
@@ -56,9 +57,9 @@ export class PasswordRecoveryComponent {
     
     sendForm() { 
         this.presentLoading();
-        if (Network.type === 'none') {
+        if (Network.type === NONE) {
             this.loader.dismiss();
-            this.makeToast("No tienes conexión a internet","top");
+            this.makeToast(NO_NETWORK_CONNECTION, TOP);
         } else {
             this.dataForm.email = this.passwordRecoveryForm.value.email;
             this.passwordRecoveryService.updatePasswordByMail(this.dataForm).subscribe(
@@ -66,15 +67,15 @@ export class PasswordRecoveryComponent {
                     this.loader.dismiss();
                     this.updatePasswordResponse = updatePasswordResponse;
                     if(this.updatePasswordResponse.tipo !== 200){
-                        this.makeToast(this.updatePasswordResponse.message,"top");
+                        this.makeToast(this.updatePasswordResponse.message, TOP);
                     }else{
-                        this.makeToast(this.updatePasswordResponse.message,"top");
+                        this.makeToast(this.updatePasswordResponse.message, TOP);
                     }
                 },
                 error => {
                     this.loader.dismiss(); 
                     this.errorMessage = <any>error
-                    this.makeToast("Ops! Algo salio mal.","top");
+                    this.makeToast(OPS, TOP);
                 }
             );
         }

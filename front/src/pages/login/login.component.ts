@@ -9,6 +9,7 @@ import { IResponseUtil } from '../../interfaces/responseUtil.interface';
 import { ILogin } from '../../interfaces/login.interface';
 import { LoginService } from './login.service';
 import { PATTERN_EMAIL } from '../../common/const-util';
+import { NONE, NO_NETWORK_CONNECTION, TOP, CLOSE, OPS, WAIT } from '../../common/const-messages';
 
 @Component({
     selector: 'login',
@@ -35,8 +36,8 @@ export class LoginComponent {
         private loginService: LoginService,
         private loadingCtrl: LoadingController,
         private navCtrl: NavController) {
-        if (Network.type === 'none') {
-            this.makeToast("No tienes conexión a internet","top");
+        if (Network.type === NONE) {
+            this.makeToast(NO_NETWORK_CONNECTION, TOP);
         }
         this.loginForm = new FormGroup({
             usuario: new FormControl(null, Validators.compose([
@@ -49,7 +50,7 @@ export class LoginComponent {
 
     presentLoading() {
         this.loader = this.loadingCtrl.create({
-          content: "Espere..."
+          content: WAIT
         });
         this.loader.present();
     }
@@ -60,7 +61,7 @@ export class LoginComponent {
             duration: 6000,
             position: position,
             showCloseButton: true,
-            closeButtonText: "Cerrar",
+            closeButtonText: CLOSE,
             dismissOnPageChange: false
         });
         toast.present();
@@ -68,9 +69,9 @@ export class LoginComponent {
     
     sendForm() { 
         this.presentLoading();
-        if (Network.type === 'none') {
+        if (Network.type === NONE) {
             this.loader.dismiss();
-            this.makeToast("No tienes conexión a internet","top");
+            this.makeToast(NO_NETWORK_CONNECTION, TOP);
         } else {
             this.dataForm.password = this.loginForm.value.contrasenia;
             this.dataForm.userName = this.loginForm.value.usuario;
@@ -79,7 +80,7 @@ export class LoginComponent {
                     this.loader.dismiss();
                     this.loginUserResponse = loginUserResponse;
                     if(this.loginUserResponse.tipo !== 200){
-                        this.makeToast(this.loginUserResponse.message,"top");
+                        this.makeToast(this.loginUserResponse.message, TOP);
                     }else{
                         this.navCtrl.setRoot(this.homeComponent);
                     }
@@ -87,7 +88,7 @@ export class LoginComponent {
                 error => {
                     this.loader.dismiss(); 
                     this.errorMessage = <any>error
-                    this.makeToast("Ops! Algo salio mal.","top");
+                    this.makeToast(OPS, TOP);
                 }
             );
         }

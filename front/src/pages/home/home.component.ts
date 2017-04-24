@@ -13,5 +13,4 @@ export class HomeComponent {
   constructor(public navCtrl: NavController) {
     
   }
-
 }

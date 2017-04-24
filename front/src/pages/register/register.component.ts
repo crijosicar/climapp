@@ -12,6 +12,7 @@ import { LoginService } from '../login/login.service';
 import { HomeComponent } from '../home/home.component'; 
 import { LoginComponent } from '../login/login.component'; 
 import { MONTHS_SHORT_NAMES, PATTERN_EMAIL, PHONE_NUMBER, PATTERN_PASSWORD } from '../../common/const-util';
+import { NONE, NO_NETWORK_CONNECTION, TOP, CLOSE, OPS, WAIT, ACCEPT } from '../../common/const-messages';
 import * as moment from 'moment';
 
 @Component({
@@ -112,7 +113,7 @@ export class RegisterComponent {
         let alert = this.alertCtrl.create({
             title: 'Info',
             subTitle: message,
-            buttons: ['Aceptar']
+            buttons: [ACCEPT]
         });
         alert.present();
     }
@@ -144,7 +145,7 @@ export class RegisterComponent {
                 this.loader.dismiss();
                 this.saveNewResponse = saveNewResponse;
                 if(this.saveNewResponse.tipo !== 200){
-                    this.makeToast(this.saveNewResponse.message,"top");
+                    this.makeToast(this.saveNewResponse.message, TOP);
                 }else{
                     this.loginAfterRegister(formRegister);
                 }
@@ -152,16 +153,16 @@ export class RegisterComponent {
             error =>{ 
                 this.errorMessage = <any>error
                 this.loader.dismiss();
-                this.makeToast("Ops! Algo salio mal.","top");
+                this.makeToast(OPS, TOP);
             }
         );
     }
     
     loginAfterRegister(formData) { 
         this.presentLoading();
-        if (Network.type === 'none') {
+        if (Network.type === NONE) {
             this.loader.dismiss();
-            this.makeToast("No tienes conexión a internet","top");
+            this.makeToast(NO_NETWORK_CONNECTION, TOP);
         } else {
             this.dataForm.password = formData.userDTO.password;
             this.dataForm.userName = formData.userDTO.userName;
@@ -170,7 +171,7 @@ export class RegisterComponent {
                     this.loginUserResponse = loginUserResponse;
                     this.loader.dismiss();
                     if(this.loginUserResponse.tipo !== 200){
-                        this.makeToast(this.loginUserResponse.message,"top");
+                        this.makeToast(this.loginUserResponse.message, TOP);
                     }else{
                         this.navCtrl.setRoot(this.homeComponent);
                     }
@@ -178,7 +179,7 @@ export class RegisterComponent {
                 error => { 
                     this.errorMessage = <any>error
                     this.loader.dismiss();
-                    this.makeToast("Ops! Algo salio mal.","top");
+                    this.makeToast(OPS, TOP);
                 }
             );
         }
@@ -186,7 +187,7 @@ export class RegisterComponent {
     
     presentLoading() {
         this.loader = this.loadingCtrl.create({
-          content: "Espere.."
+          content: WAIT
         });
         this.loader.present();
     }
@@ -197,7 +198,7 @@ export class RegisterComponent {
             duration: 6000,
             position: position,
             showCloseButton: true,
-            closeButtonText: "Cerrar",
+            closeButtonText: CLOSE,
             dismissOnPageChange: false
         });
         toast.present();
