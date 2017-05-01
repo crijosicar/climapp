@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Component, ViewChild } from '@angular/core';
 import { HomeComponent } from '../pages/home/home.component';
 import { IPage } from '../interfaces/page.interface';
@@ -43,3 +44,31 @@ export class MyApp {
 
 
 
+=======
+import { Component, ViewChild } from '@angular/core';
+import { Nav, Platform } from 'ionic-angular';
+import { StatusBar, Splashscreen } from 'ionic-native';
+import { LoginComponent } from '../pages/login/login.component';
+
+@Component({
+    templateUrl: 'app.html'
+})
+export class MyApp {
+    @ViewChild(Nav) nav: Nav;
+
+    constructor(public platform: Platform) {
+        this.initializeApp();
+    }
+
+    initializeApp() {
+        this.platform.ready().then(() => {
+            StatusBar.styleLightContent();
+            Splashscreen.hide();
+            this.nav.setRoot(LoginComponent);
+        });
+    }      
+}
+
+
+
+>>>>>>> d405f5f0deef5a662efd8fbc0822751364744c34
