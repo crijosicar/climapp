@@ -1,12 +1,17 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { Nav, LoadingController, ToastController, NavController  } from 'ionic-angular';
-import { Network } from 'ionic-native';
-import { RegisterComponent } from '../register/register.component'; 
-import { HomeComponent } from '../home/home.component'; 
-import { IResponseUtil } from '../../interfaces/responseUtil.interface';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { HomeComponent } from '../home/home.component';
 import { ILogin } from '../../interfaces/login.interface';
+import { IResponseUtil } from '../../interfaces/responseUtil.interface';
+import {
+    LoadingController,
+    Nav,
+    NavController,
+    ToastController
+    } from 'ionic-angular';
 import { LoginService } from './login.service';
+import { Network } from 'ionic-native';
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
     selector: 'login',
@@ -21,35 +26,35 @@ export class LoginComponent {
     errorMessage: string;
     homeComponent: any = HomeComponent;
     dataForm: ILogin = {
-                id: null,
-                idPerson: null,
-                idUserAccess: null,
-                password: null,
-                userName: null
-            };
-    
+        id: null,
+        idPerson: null,
+        idUserAccess: null,
+        password: null,
+        userName: null
+    };
+
     constructor(private toastCtrl: ToastController,
         private loginService: LoginService,
         private loadingCtrl: LoadingController,
         private navCtrl: NavController) {
         if (Network.type === 'none') {
-            this.makeToast("No tienes conexión a internet","bottom");
+            this.makeToast("No tienes conexiï¿½n a internet", "bottom");
         }
         this.loginForm = new FormGroup({
-            usuario: new FormControl(null,[Validators.required]),
+            usuario: new FormControl(null, [Validators.required]),
             contrasenia: new FormControl(null, Validators.required)
         });
-    } 
+    }
 
     presentLoading() {
         this.loader = this.loadingCtrl.create({
-          content: "Espere..."
+            content: "Espere..."
         });
         this.loader.present();
     }
 
-    makeToast(message: string, position: string){
-         let toast = this.toastCtrl.create({
+    makeToast(message: string, position: string) {
+        let toast = this.toastCtrl.create({
             message: message,
             duration: 6000,
             position: position,
@@ -59,12 +64,12 @@ export class LoginComponent {
         });
         toast.present();
     }
-    
-    sendForm() { 
+
+    sendForm() {
         this.presentLoading();
         if (Network.type === 'none') {
             this.loader.dismiss();
-            this.makeToast("No tienes conexión a internet","bottom");
+            this.makeToast("No tienes conexiï¿½n a internet", "bottom");
         } else {
             this.dataForm.password = this.loginForm.value.contrasenia;
             this.dataForm.userName = this.loginForm.value.usuario;
@@ -72,16 +77,16 @@ export class LoginComponent {
                 loginUserResponse => {
                     this.loader.dismiss();
                     this.loginUserResponse = loginUserResponse;
-                    if(this.loginUserResponse.tipo !== 200){
-                        this.makeToast(this.loginUserResponse.message,"bottom");
-                    }else{
+                    if (this.loginUserResponse.tipo !== 200) {
+                        this.makeToast(this.loginUserResponse.message, "bottom");
+                    } else {
                         this.navCtrl.setRoot(this.homeComponent);
                     }
                 },
                 error => {
-                    this.loader.dismiss(); 
+                    this.loader.dismiss();
                     this.errorMessage = <any>error
-                    this.makeToast("Ops! Algo salio mal.","bottom");
+                    this.makeToast("Ops! Algo salio mal.", "bottom");
                 }
             );
         }

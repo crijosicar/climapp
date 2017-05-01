@@ -1,12 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
-
-import { IPage } from '../interfaces/page.interface'; 
-
 import { HomeComponent } from '../pages/home/home.component';
+import { IPage } from '../interfaces/page.interface';
 import { LoginComponent } from '../pages/login/login.component';
+import { Nav, Platform } from 'ionic-angular';
 import { RegisterComponent } from '../pages/register/register.component';
+import { Splashscreen, StatusBar } from 'ionic-native';
+
+ 
+
 
 
 @Component({

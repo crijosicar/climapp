@@ -1,17 +1,29 @@
+import * as moment from 'moment';
+import {
+    AlertController,
+    LoadingController,
+    Nav,
+    NavController,
+    ToastController
+} from 'ionic-angular';
 import { Component, ViewChild } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Geolocation, Network } from 'ionic-native';
-import { AlertController, Nav, LoadingController, ToastController, NavController } from 'ionic-angular';
-import { TermsValidator } from '../../common/validators/termsValidator';
+import { HomeComponent } from '../home/home.component';
 import { ICity } from '../../interfaces/city.interface';
 import { IGender } from '../../interfaces/gender.interface';
-import { IResponseUtil } from '../../interfaces/responseUtil.interface';
 import { ILogin } from '../../interfaces/login.interface';
-import { RegisterService } from './register.service';
+import { IResponseUtil } from '../../interfaces/responseUtil.interface';
 import { LoginService } from '../login/login.service';
-import { HomeComponent } from '../home/home.component'; 
-import { MONTHS_SHORT_NAMES, PATTERN_EMAIL, PHONE_NUMBER, PATTERN_PASSWORD } from '../../common/const-util';
-import * as moment from 'moment';
+import {
+    MONTHS_SHORT_NAMES,
+    PATTERN_EMAIL,
+    PATTERN_PASSWORD,
+    PHONE_NUMBER
+} from '../../common/const-util';
+import { RegisterService } from './register.service';
+import { TermsValidator } from '../../common/validators/termsValidator';
+
 
 @Component({
     selector: 'register',
@@ -30,12 +42,12 @@ export class RegisterComponent {
     loader: any;
     @ViewChild(Nav) nav: Nav;
     dataForm: ILogin = {
-                id: null,
-                idPerson: null,
-                idUserAccess: null,
-                password: null,
-                userName: null
-            };
+        id: null,
+        idPerson: null,
+        idUserAccess: null,
+        password: null,
+        userName: null
+    };
     homeComponent: any = HomeComponent;
 
     constructor(private registerService: RegisterService,
@@ -117,53 +129,53 @@ export class RegisterComponent {
 
     sendForm() {
         this.presentLoading();
-        let formData = this.registerForm.value;        
+        let formData = this.registerForm.value;
         this.dataForm.password = formData.password;
-        this.dataForm.userName = formData.email;      
+        this.dataForm.userName = formData.email;
         let year = formData.birthDate.substring(0, 4);
         let month = formData.birthDate.substring(5, 7);
-        let day = formData.birthDate.substring(9, 10); 
-        formData.birthDate =  moment(`${year}-${month}-${day}`).format("YYYY-MM-DD[T]HH:mm:ss.SSS[Z]");
-        let formRegister = 
-        {
-            "birthDate": formData.birthDate,
-            "email": formData.email,
-            "id": formData.id,
-            "idBornCity": Number(formData.idBornCity),
-            "idGender": Number(formData.idGender),
-            "idState": formData.idState,
-            "lastname": formData.lastname,
-            "listFrecuentCity": [
-              Number(formData.actualCity)
-            ],
-            "name": formData.name,
-            "phone": formData.phone,
-            "userDTO": this.dataForm
-        };
-        
+        let day = formData.birthDate.substring(9, 10);
+        formData.birthDate = moment(`${year}-${month}-${day}`).format("YYYY-MM-DD[T]HH:mm:ss.SSS[Z]");
+        let formRegister =
+            {
+                "birthDate": formData.birthDate,
+                "email": formData.email,
+                "id": formData.id,
+                "idBornCity": Number(formData.idBornCity),
+                "idGender": Number(formData.idGender),
+                "idState": formData.idState,
+                "lastname": formData.lastname,
+                "listFrecuentCity": [
+                    Number(formData.actualCity)
+                ],
+                "name": formData.name,
+                "phone": formData.phone,
+                "userDTO": this.dataForm
+            };
+
         this.registerService.registerNewUser(formRegister).subscribe(
             saveNewResponse => {
                 this.loader.dismiss();
                 this.saveNewResponse = saveNewResponse;
-                if(this.saveNewResponse.tipo !== 200){
-                    this.makeToast(this.saveNewResponse.message,"bottom");
-                }else{
+                if (this.saveNewResponse.tipo !== 200) {
+                    this.makeToast(this.saveNewResponse.message, "bottom");
+                } else {
                     this.loginAfterRegister(formRegister);
                 }
             },
-            error =>{ 
+            error => {
                 this.errorMessage = <any>error
                 this.loader.dismiss();
-                this.makeToast("Ops! Algo salio mal.","bottom");
+                this.makeToast("Ops! Algo salio mal.", "bottom");
             }
         );
     }
-    
-    loginAfterRegister(formData) { 
+
+    loginAfterRegister(formData) {
         this.presentLoading();
         if (Network.type === 'none') {
             this.loader.dismiss();
-            this.makeToast("No tienes conexión a internet","bottom");
+            this.makeToast("No tienes conexiï¿½n a internet", "bottom");
         } else {
             this.dataForm.password = formData.userDTO.password;
             this.dataForm.userName = formData.userDTO.userName;
@@ -171,30 +183,30 @@ export class RegisterComponent {
                 loginUserResponse => {
                     this.loginUserResponse = loginUserResponse;
                     this.loader.dismiss();
-                    if(this.loginUserResponse.tipo !== 200){
-                        this.makeToast(this.loginUserResponse.message,"bottom");
-                    }else{
+                    if (this.loginUserResponse.tipo !== 200) {
+                        this.makeToast(this.loginUserResponse.message, "bottom");
+                    } else {
                         this.navCtrl.setRoot(this.homeComponent);
                     }
                 },
-                error => { 
+                error => {
                     this.errorMessage = <any>error
                     this.loader.dismiss();
-                    this.makeToast("Ops! Algo salio mal.","bottom");
+                    this.makeToast("Ops! Algo salio mal.", "bottom");
                 }
             );
         }
     }
-    
+
     presentLoading() {
         this.loader = this.loadingCtrl.create({
-          content: "Espere.."
+            content: "Espere.."
         });
         this.loader.present();
     }
-    
-    makeToast(message: string, position: string){
-         let toast = this.toastCtrl.create({
+
+    makeToast(message: string, position: string) {
+        let toast = this.toastCtrl.create({
             message: message,
             duration: 6000,
             position: position,
