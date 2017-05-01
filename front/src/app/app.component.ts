@@ -21,13 +21,11 @@ export class MyApp {
 
     constructor(public platform: Platform) {
         this.initializeApp();
-
         this.pages = [
             { title: 'Login', component: LoginComponent },
             { title: 'Register', component: RegisterComponent },
             { title: 'Inicio', component: HomeComponent }
         ];
-
     }
 
     initializeApp() {

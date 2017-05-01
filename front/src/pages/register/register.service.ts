@@ -33,7 +33,7 @@ export class RegisterService {
             .catch(this.handleError);
     }
     
-    registerNewUser(body: Object): Observable<IResponseUtil[]> {
+    registerNewUser(body: Object): Observable<IResponseUtil> {
         let options = new RequestOptions({ headers: this.headers });
         return this.http.post(`${URL_API}${this.personUrl}`, body, options)
             .map(this.extractData)
@@ -41,14 +41,7 @@ export class RegisterService {
     }
 
     private extractData(res: Response) {
-        let body = res.json();
-        if (Array.isArray(body)) {
-            return body || {};
-        } else if (typeof body == "object") {
-            return Array.of(body) || {};
-        }else{
-            return body;
-        }
+        return res.json();
     }
 
     private handleError(error: Response | any) {

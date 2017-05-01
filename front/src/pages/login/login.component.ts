@@ -5,15 +5,14 @@ import { Network } from 'ionic-native';
 import { RegisterComponent } from '../register/register.component'; 
 import { HomeComponent } from '../home/home.component'; 
 import { IResponseUtil } from '../../interfaces/responseUtil.interface';
+import { ILogin } from '../../interfaces/login.interface';
 import { LoginService } from './login.service';
-
 
 @Component({
     selector: 'login',
     templateUrl: 'login.component.html'
 })
 export class LoginComponent {
-    
     @ViewChild(Nav) nav: Nav;
     loginForm: FormGroup;
     registerComponent: any = RegisterComponent;
@@ -21,36 +20,34 @@ export class LoginComponent {
     loader: any;
     errorMessage: string;
     homeComponent: any = HomeComponent;
+    dataForm: ILogin = {
+                id: null,
+                idPerson: null,
+                idUserAccess: null,
+                password: null,
+                userName: null
+            };
     
     constructor(private toastCtrl: ToastController,
         private loginService: LoginService,
         private loadingCtrl: LoadingController,
         private navCtrl: NavController) {
-        this.verifyInternetConnection();
+        if (Network.type === 'none') {
+            this.makeToast("No tienes conexión a internet","bottom");
+        }
         this.loginForm = new FormGroup({
             usuario: new FormControl(null,[Validators.required]),
             contrasenia: new FormControl(null, Validators.required)
         });
     } 
-   
-    verifyInternetConnection() {
-        if (Network.type === 'none') {
-            this.makeToast("No tienes conexión a internet","bottom");
-        }
-    }
-    
+
     presentLoading() {
         this.loader = this.loadingCtrl.create({
-          content: "Espere.."
+          content: "Espere..."
         });
         this.loader.present();
     }
-    
-    showToastMessage(message: any) {
-        this.loader.dismiss();
-        this.makeToast(message.message,"bottom");
-    }
-    
+
     makeToast(message: string, position: string){
          let toast = this.toastCtrl.create({
             message: message,
@@ -64,27 +61,27 @@ export class LoginComponent {
     }
     
     sendForm() { 
+        this.presentLoading();
         if (Network.type === 'none') {
-            this.makeToast("No tienes conexión a internet","bottom");  
+            this.loader.dismiss();
+            this.makeToast("No tienes conexión a internet","bottom");
         } else {
-            this.presentLoading();
-            let formData = this.loginForm.value;
-            let dataForm = {
-                "id": null,
-                "idPerson": null,
-                "idUserAccess": null,
-                "password": formData.contrasenia,
-                "userName": formData.usuario
-            };
-            this.loginService.loginUser(dataForm).subscribe(
+            this.dataForm.password = this.loginForm.value.contrasenia;
+            this.dataForm.userName = this.loginForm.value.usuario;
+            this.loginService.loginUser(this.dataForm).subscribe(
                 loginUserResponse => {
-                    this.loginUserResponse = loginUserResponse;
-                    this.navCtrl.setRoot(this.homeComponent);
                     this.loader.dismiss();
+                    this.loginUserResponse = loginUserResponse;
+                    if(this.loginUserResponse.tipo !== 200){
+                        this.makeToast(this.loginUserResponse.message,"bottom");
+                    }else{
+                        this.navCtrl.setRoot(this.homeComponent);
+                    }
                 },
-                error => { 
-                    this.showToastMessage("Ops! Algo salio mal.","bottom");
+                error => {
+                    this.loader.dismiss(); 
                     this.errorMessage = <any>error
+                    this.makeToast("Ops! Algo salio mal.","bottom");
                 }
             );
         }

@@ -1,13 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { Geolocation } from 'ionic-native';
-import { AlertController, Nav, LoadingController, ToastController } from 'ionic-angular';
+import { Geolocation, Network } from 'ionic-native';
+import { AlertController, Nav, LoadingController, ToastController, NavController } from 'ionic-angular';
 import { TermsValidator } from '../../common/validators/termsValidator';
 import { ICity } from '../../interfaces/city.interface';
 import { IGender } from '../../interfaces/gender.interface';
-import { IUser } from '../../interfaces/user.interface';
 import { IResponseUtil } from '../../interfaces/responseUtil.interface';
+import { ILogin } from '../../interfaces/login.interface';
 import { RegisterService } from './register.service';
+import { LoginService } from '../login/login.service';
+import { HomeComponent } from '../home/home.component'; 
 import { MONTHS_SHORT_NAMES, PATTERN_EMAIL, PHONE_NUMBER, PATTERN_PASSWORD } from '../../common/const-util';
 import * as moment from 'moment';
 
@@ -16,29 +18,32 @@ import * as moment from 'moment';
     templateUrl: 'register.component.html'
 })
 export class RegisterComponent {
-
     termsAgree: boolean;
     errorMessage: string;
     monthNames = MONTHS_SHORT_NAMES;
-    userDTO: IUser = {
-        id: null,
-        idPerson: null,
-        idUserAccess: null,
-        password: null,
-        userName: null
-    };
     saveNewResponse: IResponseUtil;
+    loginUserResponse: IResponseUtil;
     listCities: Array<ICity>;
     listCitiesBorn: Array<ICity>;
     listGeneros: Array<IGender>;
     registerForm: FormGroup;
     loader: any;
     @ViewChild(Nav) nav: Nav;
+    dataForm: ILogin = {
+                id: null,
+                idPerson: null,
+                idUserAccess: null,
+                password: null,
+                userName: null
+            };
+    homeComponent: any = HomeComponent;
 
     constructor(private registerService: RegisterService,
         private alertCtrl: AlertController,
         private loadingCtrl: LoadingController,
-        private toastCtrl: ToastController) {
+        private toastCtrl: ToastController,
+        private loginService: LoginService,
+        private navCtrl: NavController) {
         this.getAllCities();
         this.getAllGenders();
         this.termsAgree = false;
@@ -113,16 +118,13 @@ export class RegisterComponent {
     sendForm() {
         this.presentLoading();
         let formData = this.registerForm.value;        
-        this.userDTO.id = null;
-        this.userDTO.idPerson = null;
-        this.userDTO.idUserAccess = null;
-        this.userDTO.password = formData.password;
-        this.userDTO.userName = formData.email;      
+        this.dataForm.password = formData.password;
+        this.dataForm.userName = formData.email;      
         let year = formData.birthDate.substring(0, 4);
         let month = formData.birthDate.substring(5, 7);
         let day = formData.birthDate.substring(9, 10); 
         formData.birthDate =  moment(`${year}-${month}-${day}`).format("YYYY-MM-DD[T]HH:mm:ss.SSS[Z]");
-        let dataForm = 
+        let formRegister = 
         {
             "birthDate": formData.birthDate,
             "email": formData.email,
@@ -136,30 +138,52 @@ export class RegisterComponent {
             ],
             "name": formData.name,
             "phone": formData.phone,
-            "userDTO": this.userDTO
+            "userDTO": this.dataForm
         };
         
-        this.registerService.registerNewUser(dataForm).subscribe(
+        this.registerService.registerNewUser(formRegister).subscribe(
             saveNewResponse => {
+                this.loader.dismiss();
                 this.saveNewResponse = saveNewResponse;
-                let message ={
-                 title: "",
-                 message: this.saveNewResponse[0].message,
-                 position: "bottom"
+                if(this.saveNewResponse.tipo !== 200){
+                    this.makeToast(this.saveNewResponse.message,"bottom");
+                }else{
+                    this.loginAfterRegister(formRegister);
                 }
-                this.showToastMessage(message);
             },
             error =>{ 
-                this.loader.dismiss();
                 this.errorMessage = <any>error
-                let message ={
-                 title: "",
-                 message: "Ops! Algo salio mal.",
-                 position: "top"
-                }
-                this.showToastMessage(message);
+                this.loader.dismiss();
+                this.makeToast("Ops! Algo salio mal.","bottom");
             }
         );
+    }
+    
+    loginAfterRegister(formData) { 
+        this.presentLoading();
+        if (Network.type === 'none') {
+            this.loader.dismiss();
+            this.makeToast("No tienes conexión a internet","bottom");
+        } else {
+            this.dataForm.password = formData.userDTO.password;
+            this.dataForm.userName = formData.userDTO.userName;
+            this.loginService.loginUser(this.dataForm).subscribe(
+                loginUserResponse => {
+                    this.loginUserResponse = loginUserResponse;
+                    this.loader.dismiss();
+                    if(this.loginUserResponse.tipo !== 200){
+                        this.makeToast(this.loginUserResponse.message,"bottom");
+                    }else{
+                        this.navCtrl.setRoot(this.homeComponent);
+                    }
+                },
+                error => { 
+                    this.errorMessage = <any>error
+                    this.loader.dismiss();
+                    this.makeToast("Ops! Algo salio mal.","bottom");
+                }
+            );
+        }
     }
     
     presentLoading() {
@@ -169,12 +193,11 @@ export class RegisterComponent {
         this.loader.present();
     }
     
-    showToastMessage(message: any) {
-        this.loader.dismiss();
-        let toast = this.toastCtrl.create({
-            message: message.message,
+    makeToast(message: string, position: string){
+         let toast = this.toastCtrl.create({
+            message: message,
             duration: 6000,
-            position: message.position,
+            position: position,
             showCloseButton: true,
             closeButtonText: "Cerrar",
             dismissOnPageChange: false
