@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
@@ -24,31 +23,4 @@
   "atom": {
     "rewriteTsconfig": false
   }
-=======
-{
-  "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "declaration": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "lib": [
-      "dom",
-      "es2015"
-    ],
-    "module": "es2015",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "target": "es5"
-  },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
-  "compileOnSave": true,
-  "atom": {
-    "rewriteTsconfig": false
-  }
->>>>>>> d405f5f0deef5a662efd8fbc0822751364744c34
 }

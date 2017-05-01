@@ -1,57 +1,3 @@
-<<<<<<< HEAD
-<ion-content padding>
-    <form [formGroup]="loginForm" (ngSubmit)="sendForm()">
-        <ion-grid>
-            <ion-row>
-                <ion-col width-100>
-                    <ion-item>
-                        <ion-label color="primary" stacked>Usuario</ion-label>
-                        <ion-input  type="text" 
-                                    formControlName="usuario"
-                                    clearInput>
-                        </ion-input>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col width-100>
-                    <ion-item>
-                        <ion-label color="primary" stacked>ContraseÃ±a</ion-label>
-                        <ion-input  type="password" 
-                                    formControlName="contrasenia"></ion-input>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col width-100>
-                    <button ion-button  
-                            type="submit" 
-                            outline
-                            round
-                            icon-left
-                            [disabled]="!loginForm.valid">
-                        Ingresar
-                        <ion-icon name="arrow-forward"></ion-icon>
-                    </button>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col width-50>
-                    <a [navPush]="registerComponent">
-                        Registrarse
-                    </a>
-                </ion-col>
-                <ion-col width-50>
-                    <a [navPush]="registerComponent">
-                        Recuperar contraseña
-                    </a>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-    </form>
-</ion-content>
-
-=======
 <ion-content padding>
     <form [formGroup]="loginForm" (ngSubmit)="sendForm()">
         <ion-grid>
@@ -70,14 +16,14 @@
                     </div>
                     <div *ngIf="loginForm.controls.usuario.hasError('pattern') 
                         && loginForm.controls.usuario.touched" class="alert alert-danger">
-                        Email inválido.
+                        Email invï¿½lido.
                     </div>
                 </ion-col>
             </ion-row>
             <ion-row>
                 <ion-col width-100>
                     <ion-item>
-                        <ion-label color="primary" stacked>Contraseña</ion-label>
+                        <ion-label color="primary" stacked>Contraseï¿½a</ion-label>
                         <ion-input  type="password" 
                                     formControlName="contrasenia"></ion-input>
                     </ion-item>
@@ -106,12 +52,10 @@
                 </ion-col>
                 <ion-col width-50>
                     <a [navPush]="passwordRecoveryComponent">
-                        Restablecer contraseña
+                        Restablecer contraseÃ±a
                     </a>
                 </ion-col>
             </ion-row>
         </ion-grid>
     </form>
 </ion-content>
-
->>>>>>> d405f5f0deef5a662efd8fbc0822751364744c34

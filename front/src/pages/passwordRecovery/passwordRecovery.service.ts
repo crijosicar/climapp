@@ -1,10 +1,15 @@
+import {
+    Headers,
+    Http,
+    RequestOptions,
+    Response
+} from '@angular/http';
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-
-import '../../common/rxjs-operators';
-import { URL_API } from '../../common/const-util';
 import { IResponseUtil } from '../../interfaces/responseUtil.interface';
+import { Observable } from 'rxjs/Observable';
+import { URL_API } from '../../common/const-util';
+import '../../common/rxjs-operators';
+
 
 
 @Injectable()
@@ -14,7 +19,7 @@ export class PasswordRecoveryService {
     private headers = new Headers({ 'Content-Type': 'application/json' });
 
     constructor(private http: Http) { }
-    
+
     updatePasswordByMail(body: Object): Observable<IResponseUtil> {
         let options = new RequestOptions({ headers: this.headers });
         return this.http.post(`${URL_API}${this.resetPasswordUrl}`, body, options)

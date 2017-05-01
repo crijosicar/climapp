@@ -1,13 +1,26 @@
+import {
+    CLOSE,
+    NO_NETWORK_CONNECTION,
+    NONE,
+    OPS,
+    TOP,
+    WAIT
+} from '../../common/const-messages';
 import { Component, ViewChild } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { Nav, LoadingController, ToastController, NavController  } from 'ionic-angular';
-import { Network } from 'ionic-native';
-import { LoginComponent } from '../login/login.component'; 
-import { IResponseUtil } from '../../interfaces/responseUtil.interface';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IPasswordRecovery } from '../../interfaces/passwordRecovery.interface';
+import { IResponseUtil } from '../../interfaces/responseUtil.interface';
+import {
+    LoadingController,
+    Nav,
+    NavController,
+    ToastController
+} from 'ionic-angular';
+import { LoginComponent } from '../login/login.component';
+import { Network } from 'ionic-native';
 import { PasswordRecoveryService } from './passwordRecovery.service';
 import { PATTERN_EMAIL } from '../../common/const-util';
-import { NONE, NO_NETWORK_CONNECTION, TOP, CLOSE, OPS, WAIT } from '../../common/const-messages';
+
 
 @Component({
     selector: 'passwordRecovery',
@@ -23,7 +36,7 @@ export class PasswordRecoveryComponent {
         email: null
     };
     updatePasswordResponse: IResponseUtil;
-    
+
     constructor(private toastCtrl: ToastController,
         private passwordRecoveryService: PasswordRecoveryService,
         private loadingCtrl: LoadingController,
@@ -34,17 +47,17 @@ export class PasswordRecoveryComponent {
                 Validators.required
             ]))
         });
-    } 
+    }
 
     presentLoading() {
         this.loader = this.loadingCtrl.create({
-          content: WAIT
+            content: WAIT
         });
         this.loader.present();
     }
 
-    makeToast(message: string, position: string){
-         let toast = this.toastCtrl.create({
+    makeToast(message: string, position: string) {
+        let toast = this.toastCtrl.create({
             message: message,
             duration: 6000,
             position: position,
@@ -54,8 +67,8 @@ export class PasswordRecoveryComponent {
         });
         toast.present();
     }
-    
-    sendForm() { 
+
+    sendForm() {
         this.presentLoading();
         if (Network.type === NONE) {
             this.loader.dismiss();
@@ -66,14 +79,14 @@ export class PasswordRecoveryComponent {
                 updatePasswordResponse => {
                     this.loader.dismiss();
                     this.updatePasswordResponse = updatePasswordResponse;
-                    if(this.updatePasswordResponse.tipo !== 200){
+                    if (this.updatePasswordResponse.tipo !== 200) {
                         this.makeToast(this.updatePasswordResponse.message, TOP);
-                    }else{
+                    } else {
                         this.makeToast(this.updatePasswordResponse.message, TOP);
                     }
                 },
                 error => {
-                    this.loader.dismiss(); 
+                    this.loader.dismiss();
                     this.errorMessage = <any>error
                     this.makeToast(OPS, TOP);
                 }
