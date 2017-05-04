@@ -46,7 +46,7 @@
                     </div>
                     <div *ngIf="registerForm.controls.phone.hasError('pattern') 
                         && registerForm.controls.phone.touched" class="alert alert-danger">
-                        S�lo n�meros.
+                        Sólo números.
                     </div>
                 </ion-col>
             </ion-row>
@@ -146,14 +146,14 @@
                     </div>
                     <div *ngIf="registerForm.controls.email.hasError('pattern') 
                         && registerForm.controls.email.touched" class="alert alert-danger">
-                        Email inv�lido.
+                        Email inválido.
                     </div>
                 </ion-col>
             </ion-row>
             <ion-row>
                 <ion-col width-100>
                     <ion-item>
-                        <ion-label color="primary" stacked>Contrase�a</ion-label>
+                        <ion-label color="primary" stacked>Contraseña</ion-label>
                         <ion-input  type="password" 
                                     formControlName="password"
                                     clearInput>
@@ -165,18 +165,18 @@
                     </div>
                     <div *ngIf="registerForm.controls.password.hasError('minLength') 
                         && registerForm.controls.password.touched" class="alert alert-danger">
-                        M�nimo 6 car�cteres.
+                        Mínimo 6 carácteres.
                     </div>
                     <div *ngIf="registerForm.controls.password.hasError('pattern') 
                         && registerForm.controls.password.touched" class="alert alert-danger">
-                        M�nimo una letra may�scula ,una min�scula y un n�mero.
+                        Mínimo una letra mayúscula ,una miníscula y un número.
                     </div>
                 </ion-col>
             </ion-row>
             <ion-row>
                 <ion-col width-100>
                     <ion-item>
-                        <ion-label color="primary" stacked>Repetir contrase�a</ion-label>
+                        <ion-label color="primary" stacked>Repetir contraseña</ion-label>
                         <ion-input  type="password" 
                                     formControlName="confirmPassword"
                                     clearInput>
@@ -192,7 +192,7 @@
                 <ion-col width-100>
                     <ion-item>
                         <ion-label color="primary" stacked>Acepta los 
-                            <a href="#">T�rminos y condiciones</a>
+                            <a href="#">Términos y condiciones</a>
                         </ion-label>
                         <ion-toggle [(ngModel)]="termsAgree" 
                             checked="false" 
@@ -204,7 +204,7 @@
                     </div>
                     <div *ngIf="registerForm.controls.termsAgree.hasError('isValid') 
                         && registerForm.controls.termsAgree.touched" class="alert alert-danger">
-                        Debe aceptar los t�rminos y condiciones.
+                        Debe aceptar los términos y condiciones.
                     </div>
                 </ion-col>
             </ion-row>
