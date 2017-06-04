@@ -41,7 +41,7 @@ export class LoginComponent {
         idPerson: null,
         idUserAccess: null,
         password: null,
-        userName: null
+        user_name: null
     };
 
     constructor(private toastCtrl: ToastController,
@@ -86,7 +86,7 @@ export class LoginComponent {
             this.makeToast(NO_NETWORK_CONNECTION, TOP);
         } else {
             this.dataForm.password = this.loginForm.value.contrasenia;
-            this.dataForm.userName = this.loginForm.value.usuario;
+            this.dataForm.user_name = this.loginForm.value.usuario;
             this.loginService.loginUser(this.dataForm).subscribe(
                 loginUserResponse => {
                     this.loader.dismiss();

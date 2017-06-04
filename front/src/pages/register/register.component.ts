@@ -55,7 +55,7 @@ export class RegisterComponent {
         idPerson: null,
         idUserAccess: null,
         password: null,
-        userName: null
+        user_name: null
     };
     homeComponent: any = HomeComponent;
     loginComponent: any = LoginComponent;
@@ -141,7 +141,7 @@ export class RegisterComponent {
         this.presentLoading();
         let formData = this.registerForm.value;
         this.dataForm.password = formData.password;
-        this.dataForm.userName = formData.email;
+        this.dataForm.user_name = formData.email;
         let year = formData.birthDate.substring(0, 4);
         let month = formData.birthDate.substring(5, 7);
         let day = formData.birthDate.substring(9, 10);
@@ -184,7 +184,7 @@ export class RegisterComponent {
             this.makeToast(NO_NETWORK_CONNECTION, TOP);
         } else {
             this.dataForm.password = formData.userDTO.password;
-            this.dataForm.userName = formData.userDTO.userName;
+            this.dataForm.user_name = formData.userDTO.userName;
             this.loginService.loginUser(this.dataForm).subscribe(
                 loginUserResponse => {
                     this.loginUserResponse = loginUserResponse;

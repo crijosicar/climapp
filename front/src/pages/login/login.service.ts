@@ -13,7 +13,7 @@ import '../../common/rxjs-operators';
 @Injectable()
 export class LoginService {
 
-    private authUrl = 'user/Auth';
+    private authUrl = 'user/auth';
     private headers = new Headers({ 'Content-Type': 'application/json' });
 
     constructor(private http: Http) { }

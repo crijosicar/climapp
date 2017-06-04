@@ -17,8 +17,8 @@ import '../../common/rxjs-operators';
 @Injectable()
 export class RegisterService {
 
-    private cityUrl = 'city/City';
-    private genderUrl = 'vlist/ValueList';
+    private cityUrl = 'city';
+    private valueListUrl = 'value-list';
     private personUrl = 'user/Person';
     private gender = Categories.GENDER;
     private headers = new Headers({ 'Content-Type': 'application/json' });
@@ -26,13 +26,13 @@ export class RegisterService {
     constructor(private http: Http) { }
 
     getAllCities(): Observable<ICity[]> {
-        return this.http.get(`${URL_API}${this.cityUrl}`)
+        return this.http.get(`${URL_API}${this.cityUrl}/getAllCities`)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
     getAllGenders(): Observable<IGender[]> {
-        return this.http.get(`${URL_API}${this.genderUrl}/findByCategory/${this.gender}`)
+        return this.http.get(`${URL_API}${this.valueListUrl}/findByCategory/${this.gender}`)
             .map(this.extractData)
             .catch(this.handleError);
     }

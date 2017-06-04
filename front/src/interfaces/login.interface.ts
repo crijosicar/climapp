@@ -3,5 +3,5 @@ export interface ILogin {
     idPerson: string;
     idUserAccess: string;
     password: string;
-    userName: string;
+    user_name: string;
 }
