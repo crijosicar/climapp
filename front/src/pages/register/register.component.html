@@ -99,7 +99,7 @@
                             okText="Aceptar" 
                             cancelText="Cancelar">
                             <ion-option *ngFor="let city of listCities let i = index" 
-                                value="{{city.id}}">{{city.name}}</ion-option>
+                                value="{{city.id}}">{{city.value | capitalize}}</ion-option>
                         </ion-select>
                     </ion-item>
                     <div *ngIf="registerForm.controls.idBornCity.hasError('required') 
@@ -118,7 +118,7 @@
                             okText="Aceptar" 
                             cancelText="Cancelar">
                             <ion-option *ngFor="let city of listCitiesBorn let i = index" 
-                                        value="{{city.id | number}}">{{city.name  | capitalize}}
+                                        value="{{city.id}}">{{city.value  | capitalize}}
                             </ion-option>
                         </ion-select>
                     </ion-item>

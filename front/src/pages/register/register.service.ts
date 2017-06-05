@@ -25,14 +25,14 @@ export class RegisterService {
 
     constructor(private http: Http) { }
 
-    getAllCities(): Observable<ICity[]> {
+    getAllCities(): Observable<IResponseUtil> {
         return this.http.get(`${URL_API}${this.cityUrl}/getAllCities`)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-    getAllGenders(): Observable<IGender[]> {
-        return this.http.get(`${URL_API}${this.valueListUrl}/findByCategory/${this.gender}`)
+    getAllGenders(): Observable<IResponseUtil> {
+        return this.http.get(`${URL_API}${this.valueListUrl}/getAllValuesByCategory/${this.gender}`)
             .map(this.extractData)
             .catch(this.handleError);
     }

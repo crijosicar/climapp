@@ -44,9 +44,9 @@ export class RegisterComponent {
     monthNames = MONTHS_SHORT_NAMES;
     saveNewResponse: IResponseUtil;
     loginUserResponse: IResponseUtil;
-    listCities: Array<ICity>;
-    listCitiesBorn: Array<ICity>;
-    listGeneros: Array<IGender>;
+    listCities: Array<Object>;
+    listCitiesBorn: Array<Object>;
+    listGeneros: Array<Object>;
     registerForm: FormGroup;
     loader: any;
     @ViewChild(Nav) nav: Nav;
@@ -102,9 +102,14 @@ export class RegisterComponent {
     getAllCities() {
         this.registerService.getAllCities()
             .subscribe(
-            listCities => {
-                this.listCities = listCities;
-                this.listCitiesBorn = listCities;
+            listResponse => {
+                if(listResponse.tipo === 200){
+                    this.listCities = listResponse.responseList;
+                    this.listCitiesBorn = listResponse.responseList;
+                } else {
+                    this.listCities = new Array();
+                    this.listCitiesBorn = new Array();
+                }
             },
             error => this.errorMessage = <any>error
             );
@@ -114,7 +119,11 @@ export class RegisterComponent {
         this.registerService.getAllGenders()
             .subscribe(
             listGeneros => {
-                this.listGeneros = listGeneros;
+                if(listGeneros.tipo === 200){
+                    this.listGeneros = listGeneros.responseList;
+                } else {
+                    this.listGeneros = new Array();
+                } 
             },
             error => this.errorMessage = <any>error
             );
