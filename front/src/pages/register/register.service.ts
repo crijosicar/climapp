@@ -21,7 +21,10 @@ export class RegisterService {
     private valueListUrl = 'value-list';
     private personUrl = 'user/Person';
     private gender = Categories.GENDER;
-    private headers = new Headers({ 'Content-Type': 'application/json' });
+    private headers = new Headers({ 
+        'Content-Type' : 'application/json',
+        'Access-Control-Allow-Origin' : '*'
+    });
 
     constructor(private http: Http) { }
 

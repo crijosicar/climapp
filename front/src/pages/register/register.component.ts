@@ -19,8 +19,6 @@ import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Geolocation, Network } from 'ionic-native';
 import { HomeComponent } from '../home/home.component';
-import { ICity } from '../../interfaces/city.interface';
-import { IGender } from '../../interfaces/gender.interface';
 import { ILogin } from '../../interfaces/login.interface';
 import { IResponseUtil } from '../../interfaces/responseUtil.interface';
 import { LoginComponent } from '../login/login.component';

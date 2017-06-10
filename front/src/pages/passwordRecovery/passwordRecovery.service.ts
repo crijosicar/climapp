@@ -16,8 +16,10 @@ import '../../common/rxjs-operators';
 export class PasswordRecoveryService {
 
     private resetPasswordUrl = 'user/Auth/resetPassword';
-    private headers = new Headers({ 'Content-Type': 'application/json' });
-
+    private headers = new Headers({ 
+        'Content-Type' : 'application/json',
+        'Access-Control-Allow-Origin' : '*'
+    });
     constructor(private http: Http) { }
 
     updatePasswordByMail(body: Object): Observable<IResponseUtil> {

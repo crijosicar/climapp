@@ -14,8 +14,10 @@ import '../../common/rxjs-operators';
 export class LoginService {
 
     private authUrl = 'user/auth';
-    private headers = new Headers({ 'Content-Type': 'application/json' });
-
+    private headers = new Headers({ 
+        'Content-Type' : 'application/json',
+        'Access-Control-Allow-Origin' : '*'
+    });
     constructor(private http: Http) { }
 
     loginUser(body: Object): Observable<IResponseUtil> {
