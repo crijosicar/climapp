@@ -4,7 +4,7 @@
     <description>Conoce el clima de tu ciudad.</description>
     <author email="crijosicar@hotmail.com" href="http://www.crijosicar.com/">Crijosicar</author>
     <content src="index.html" />
-    <access origin="http://climapprepository.dev" />
+    <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />

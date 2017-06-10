@@ -1,4 +1,4 @@
-export const URL_API = "http://climapprepository.dev/api/v1/";
+export const URL_API = "http://35.167.136.73/api/v1/";
 
 export const MONTHS_LARGE_NAMES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 
