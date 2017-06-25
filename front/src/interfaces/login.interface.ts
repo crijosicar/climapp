@@ -4,4 +4,5 @@ export interface ILogin {
     idUserAccess: string;
     password: string;
     user_name: string;
+    terms?: boolean;
 }

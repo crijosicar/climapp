@@ -22,7 +22,7 @@ export class LoginService {
 
     loginUser(body: Object): Observable<IResponseUtil> {
         let options = new RequestOptions({ headers: this.headers });
-        return this.http.post(`${URL_API}${this.authUrl}`, body, options)
+        return this.http.post(`${URL_API}p/${this.authUrl}`, body, options)
             .map(this.extractData)
             .catch(this.handleError);
     }

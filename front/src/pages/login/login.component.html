@@ -5,9 +5,7 @@
                 <ion-col width-100>
                     <ion-item>
                         <ion-label color="primary" stacked>Usuario</ion-label>
-                        <ion-input  type="text" 
-                                    formControlName="usuario"
-                                    clearInput>
+                        <ion-input type="text" formControlName="usuario" clearInput>
                         </ion-input>
                     </ion-item>
                     <div *ngIf="loginForm.controls.usuario.hasError('required') 
@@ -24,8 +22,7 @@
                 <ion-col width-100>
                     <ion-item>
                         <ion-label color="primary" stacked>Contraseña</ion-label>
-                        <ion-input  type="password" 
-                                    formControlName="contrasenia"></ion-input>
+                        <ion-input type="password" formControlName="contrasenia"></ion-input>
                     </ion-item>
                     <div *ngIf="loginForm.controls.contrasenia.hasError('required') 
                         && loginForm.controls.contrasenia.touched" class="alert alert-danger">
@@ -35,11 +32,7 @@
             </ion-row>
             <ion-row>
                 <ion-col width-100>
-                    <button ion-button  
-                            type="submit" 
-                            outline
-                            round
-                            [disabled]="!loginForm.valid">
+                    <button ion-button type="submit" outline round>
                         Ingresar
                     </button>
                 </ion-col>

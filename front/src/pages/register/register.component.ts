@@ -7,14 +7,14 @@ import {
     OPS,
     TOP,
     WAIT
-    } from '../../common/const-messages';
+} from '../../common/const-messages';
 import {
     AlertController,
     LoadingController,
     Nav,
     NavController,
     ToastController
-    } from 'ionic-angular';
+} from 'ionic-angular';
 import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Geolocation, Network } from 'ionic-native';
@@ -28,7 +28,7 @@ import {
     PATTERN_EMAIL,
     PATTERN_PASSWORD,
     PHONE_NUMBER
-    } from '../../common/const-util';
+} from '../../common/const-util';
 import { RegisterService } from './register.service';
 import { TermsValidator } from '../../common/validators/termsValidator';
 
@@ -53,7 +53,8 @@ export class RegisterComponent {
         idPerson: null,
         idUserAccess: null,
         password: null,
-        user_name: null
+        user_name: null,
+        terms: null
     };
     homeComponent: any = HomeComponent;
     loginComponent: any = LoginComponent;
@@ -101,7 +102,7 @@ export class RegisterComponent {
         this.registerService.getAllCities()
             .subscribe(
             listResponse => {
-                if(listResponse.tipo === 200){
+                if (listResponse.tipo === 200) {
                     this.listCities = listResponse.responseList;
                     this.listCitiesBorn = listResponse.responseList;
                 } else {
@@ -109,22 +110,28 @@ export class RegisterComponent {
                     this.listCitiesBorn = new Array();
                 }
             },
-            error => this.errorMessage = <any>error
-            );
+            error =>{
+                this.errorMessage = <any>error
+                this.loader.dismiss();
+                this.makeToast(OPS, TOP);
+            });
     }
 
     getAllGenders() {
         this.registerService.getAllGenders()
             .subscribe(
             listGeneros => {
-                if(listGeneros.tipo === 200){
+                if (listGeneros.tipo === 200) {
                     this.listGeneros = listGeneros.responseList;
                 } else {
                     this.listGeneros = new Array();
-                } 
+                }
             },
-            error => this.errorMessage = <any>error
-            );
+            error => {
+                this.errorMessage = <any>error
+                this.loader.dismiss();
+                this.makeToast(OPS, TOP);
+            });
     }
 
     getGeolocalization() {
@@ -149,19 +156,20 @@ export class RegisterComponent {
         let formData = this.registerForm.value;
         this.dataForm.password = formData.password;
         this.dataForm.user_name = formData.email;
+        this.dataForm.terms = formData.termsAgree;
         let year = formData.birthDate.substring(0, 4);
         let month = formData.birthDate.substring(5, 7);
         let day = formData.birthDate.substring(9, 10);
         formData.birthDate = moment(`${year}-${month}-${day}`).format("YYYY-MM-DD[T]HH:mm:ss.SSS[Z]");
         let formRegister = {
-            "birthDate": formData.birthDate,
+            "birth_date": formData.birthDate,
             "email": formData.email,
             "id": formData.id,
-            "idBornCity": Number(formData.idBornCity),
-            "idGender": Number(formData.idGender),
-            "idState": formData.idState,
-            "lastname": formData.lastname,
-            "listFrecuentCity": [Number(formData.actualCity)],
+            "id_born_city": Number(formData.idBornCity),
+            "id_gender": Number(formData.idGender),
+            "id_state": formData.idState,
+            "last_name": formData.lastname,
+            "list_frecuent_city": [Number(formData.actualCity)],
             "name": formData.name,
             "phone": formData.phone,
             "userDTO": this.dataForm
@@ -173,7 +181,7 @@ export class RegisterComponent {
                 if (this.saveNewResponse.tipo !== 200) {
                     this.makeToast(this.saveNewResponse.message, TOP);
                 } else {
-                    this.loginAfterRegister(formRegister);
+                    this.loginAfterRegister(this.saveNewResponse.token);
                 }
             },
             error => {
@@ -190,24 +198,8 @@ export class RegisterComponent {
             this.loader.dismiss();
             this.makeToast(NO_NETWORK_CONNECTION, TOP);
         } else {
-            this.dataForm.password = formData.userDTO.password;
-            this.dataForm.user_name = formData.userDTO.userName;
-            this.loginService.loginUser(this.dataForm).subscribe(
-                loginUserResponse => {
-                    this.loginUserResponse = loginUserResponse;
-                    this.loader.dismiss();
-                    if (this.loginUserResponse.tipo !== 200) {
-                        this.makeToast(this.loginUserResponse.message, TOP);
-                    } else {
-                        this.navCtrl.setRoot(this.homeComponent);
-                    }
-                },
-                error => {
-                    this.errorMessage = <any>error
-                    this.loader.dismiss();
-                    this.makeToast(OPS, TOP);
-                }
-            );
+            this.loader.dismiss();
+            this.navCtrl.setRoot(this.homeComponent);
         }
     }
 

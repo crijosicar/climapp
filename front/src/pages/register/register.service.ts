@@ -5,8 +5,6 @@ import {
     RequestOptions,
     Response
 } from '@angular/http';
-import { ICity } from '../../interfaces/city.interface';
-import { IGender } from '../../interfaces/gender.interface';
 import { Injectable } from '@angular/core';
 import { IResponseUtil } from '../../interfaces/responseUtil.interface';
 import { Observable } from 'rxjs/Observable';
@@ -19,7 +17,7 @@ export class RegisterService {
 
     private cityUrl = 'city';
     private valueListUrl = 'value-list';
-    private personUrl = 'user/Person';
+    private personUrl = 'person/addNewUser';
     private gender = Categories.GENDER;
     private headers = new Headers({ 
         'Content-Type' : 'application/json',
@@ -29,20 +27,20 @@ export class RegisterService {
     constructor(private http: Http) { }
 
     getAllCities(): Observable<IResponseUtil> {
-        return this.http.get(`${URL_API}${this.cityUrl}/getAllCities`)
+        return this.http.get(`${URL_API}p/${this.cityUrl}/getAllCities`)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
     getAllGenders(): Observable<IResponseUtil> {
-        return this.http.get(`${URL_API}${this.valueListUrl}/getAllValuesByCategory/${this.gender}`)
+        return this.http.get(`${URL_API}p/${this.valueListUrl}/getAllValuesByCategory/${this.gender}`)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
     registerNewUser(body: Object): Observable<IResponseUtil> {
         let options = new RequestOptions({ headers: this.headers });
-        return this.http.post(`${URL_API}${this.personUrl}`, body, options)
+        return this.http.post(`${URL_API}p/${this.personUrl}`, body, options)
             .map(this.extractData)
             .catch(this.handleError);
     }

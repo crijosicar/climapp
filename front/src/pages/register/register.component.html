@@ -1,13 +1,11 @@
 <ion-content padding>
-    <form [formGroup]="registerForm" (ngSubmit)="sendForm()"> 
+    <form [formGroup]="registerForm" (ngSubmit)="sendForm()">
         <ion-grid>
             <ion-row>
                 <ion-col width-100>
                     <ion-item>
                         <ion-label color="primary" stacked>Nombre</ion-label>
-                        <ion-input  type="text" 
-                                    formControlName="name"
-                                    clearInput>
+                        <ion-input type="text" formControlName="name" clearInput>
                         </ion-input>
                     </ion-item>
                     <div *ngIf="registerForm.controls.name.hasError('required') 
@@ -20,9 +18,7 @@
                 <ion-col width-100>
                     <ion-item>
                         <ion-label color="primary" stacked>Apellidos</ion-label>
-                        <ion-input  type="text" 
-                                    formControlName="lastname"
-                                    clearInput>
+                        <ion-input type="text" formControlName="lastname" clearInput>
                         </ion-input>
                     </ion-item>
                     <div *ngIf="registerForm.controls.lastname.hasError('required') 
@@ -35,9 +31,7 @@
                 <ion-col width-100>
                     <ion-item>
                         <ion-label color="primary" stacked>Teléfono</ion-label>
-                        <ion-input  type="text" 
-                                    formControlName="phone"
-                                    clearInput>
+                        <ion-input type="text" formControlName="phone" clearInput>
                         </ion-input>
                     </ion-item>
                     <div *ngIf="registerForm.controls.phone.hasError('required') 
@@ -54,13 +48,8 @@
                 <ion-col width-100>
                     <ion-item>
                         <ion-label color="primary" stacked>Género</ion-label>
-                        <ion-select [(ngModel)]="idGender"
-                            formControlName="idGender"
-                            interface="Alert"
-                            okText="Aceptar" 
-                            cancelText="Cancelar">
-                            <ion-option *ngFor="let genero of listGeneros let i = index" 
-                                value="{{genero.id}}" selected="i == 0">{{genero.description}}</ion-option>
+                        <ion-select [(ngModel)]="idGender" formControlName="idGender" interface="Alert" okText="Aceptar" cancelText="Cancelar">
+                            <ion-option *ngFor="let genero of listGeneros let i = index" value="{{genero.id}}" selected="i == 0">{{genero.description | capitalize}}</ion-option>
                         </ion-select>
                     </ion-item>
                     <div *ngIf="registerForm.controls.idGender.hasError('required') 
@@ -73,14 +62,8 @@
                 <ion-col width-100>
                     <ion-item>
                         <ion-label color="primary" stacked>Fecha de nacimiento</ion-label>
-                        <ion-datetime displayFormat="DD MMM, YYYY" 
-                                      [(ngModel)]="birthDate"  
-                                      formControlName="birthDate"
-                                      min="1800-01-01"
-                                      pickerFormat="DD MMM, YYYY"
-                                      monthShortNames="{{ monthNames }}"
-                                      cancelText="Cancelar"
-                                      doneText="Aceptar">
+                        <ion-datetime displayFormat="DD MMM, YYYY" [(ngModel)]="birthDate" formControlName="birthDate" min="1800-01-01" pickerFormat="DD MMM, YYYY"
+                            monthShortNames="{{ monthNames }}" cancelText="Cancelar" doneText="Aceptar">
                         </ion-datetime>
                     </ion-item>
                     <div *ngIf="registerForm.controls.birthDate.hasError('required') 
@@ -93,13 +76,8 @@
                 <ion-col width-100>
                     <ion-item>
                         <ion-label color="primary" stacked>Ciudad nacimiento</ion-label>
-                        <ion-select [(ngModel)]="idBornCity"
-                            formControlName="idBornCity"
-                            interface="Alert"
-                            okText="Aceptar" 
-                            cancelText="Cancelar">
-                            <ion-option *ngFor="let city of listCities let i = index" 
-                                value="{{city.id}}">{{city.value | capitalize}}</ion-option>
+                        <ion-select [(ngModel)]="idBornCity" formControlName="idBornCity" interface="Alert" okText="Aceptar" cancelText="Cancelar">
+                            <ion-option *ngFor="let city of listCities let i = index" value="{{city.id}}">{{city.value | capitalize}}</ion-option>
                         </ion-select>
                     </ion-item>
                     <div *ngIf="registerForm.controls.idBornCity.hasError('required') 
@@ -112,13 +90,8 @@
                 <ion-col width-80>
                     <ion-item>
                         <ion-label color="primary" stacked>Ciudad actual</ion-label>
-                        <ion-select [(ngModel)]="actualCity"
-                            formControlName="actualCity"
-                            interface="Alert"
-                            okText="Aceptar" 
-                            cancelText="Cancelar">
-                            <ion-option *ngFor="let city of listCitiesBorn let i = index" 
-                                        value="{{city.id}}">{{city.value  | capitalize}}
+                        <ion-select [(ngModel)]="actualCity" formControlName="actualCity" interface="Alert" okText="Aceptar" cancelText="Cancelar">
+                            <ion-option *ngFor="let city of listCitiesBorn let i = index" value="{{city.id}}">{{city.value | capitalize}}
                             </ion-option>
                         </ion-select>
                     </ion-item>
@@ -135,9 +108,7 @@
                 <ion-col width-100>
                     <ion-item>
                         <ion-label color="primary" stacked>E-mail</ion-label>
-                        <ion-input  type="email" 
-                                    formControlName="email"
-                                    clearInput>
+                        <ion-input type="email" formControlName="email" clearInput>
                         </ion-input>
                     </ion-item>
                     <div *ngIf="registerForm.controls.email.hasError('required') 
@@ -154,9 +125,7 @@
                 <ion-col width-100>
                     <ion-item>
                         <ion-label color="primary" stacked>Contraseña</ion-label>
-                        <ion-input  type="password" 
-                                    formControlName="password"
-                                    clearInput>
+                        <ion-input type="password" formControlName="password" clearInput>
                         </ion-input>
                     </ion-item>
                     <div *ngIf="registerForm.controls.password.hasError('required') 
@@ -177,9 +146,7 @@
                 <ion-col width-100>
                     <ion-item>
                         <ion-label color="primary" stacked>Repetir contraseña</ion-label>
-                        <ion-input  type="password" 
-                                    formControlName="confirmPassword"
-                                    clearInput>
+                        <ion-input type="password" formControlName="confirmPassword" clearInput>
                         </ion-input>
                     </ion-item>
                     <div *ngIf="registerForm.controls.confirmPassword.hasError('required') 
@@ -191,12 +158,10 @@
             <ion-row>
                 <ion-col width-100>
                     <ion-item>
-                        <ion-label color="primary" stacked>Acepta los 
+                        <ion-label color="primary" stacked>Acepta los
                             <a href="#">Términos y condiciones</a>
                         </ion-label>
-                        <ion-toggle [(ngModel)]="termsAgree" 
-                            checked="false" 
-                            formControlName="termsAgree"></ion-toggle>
+                        <ion-toggle [(ngModel)]="termsAgree" checked="false" formControlName="termsAgree"></ion-toggle>
                     </ion-item>
                     <div *ngIf="registerForm.controls.termsAgree.hasError('required') 
                         && registerForm.controls.termsAgree.touched" class="alert alert-danger">
@@ -209,9 +174,7 @@
                 </ion-col>
             </ion-row>
         </ion-grid>
-        <button ion-button  
-                type="submit"
-                [disabled]="!registerForm.valid">
+        <button ion-button type="submit" [disabled]="!registerForm.valid">
             Registrar
         </button>
     </form>
@@ -219,10 +182,9 @@
         <ion-row>
             <ion-col width-50>
                 <ion-col width-50>
-                    <button ion-button clear item-right 
-                            [navPush]="loginComponent">Volver</button>
+                    <button ion-button clear item-right [navPush]="loginComponent">Volver</button>
                 </ion-col>
             </ion-col>
         </ion-row>
-    </ion-grid> 
+    </ion-grid>
 </ion-content>
